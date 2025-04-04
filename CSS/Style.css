@@ -1,16 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-       
-        h1 {
-            background-color: #34516C;
-            height: 98.4px;
-            position: relative;
-            margin: 0;
-            padding: 0;
-            z-index: 100;
-            display: flex; 
-            align-items: center; 
-            padding-left: 12px; 
+        .poppins-regular {
             font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+         }
+  
+        .menu {
+            background-color: #34516C;
+            height: 75px;
+            margin: 0;
+            display: flex; 
+            justify-content: space-between;
+            align-items: center; 
         }
 
         body {
@@ -22,55 +22,77 @@
             font-family: "Poppins", sans-serif;
         }
 
-        input{
-            width: 400px;
-            height: 24px;
-            padding: 8px;
+        
+        .search-container{
+            width: 763px;
+            height: 60px;
             background-color: #0D0B26;
-            outline: none;
-            z-index: 101;
-            position: absolute;
-            margin: auto;
-            top: 0; left: 0; bottom: 0; right: 0;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            box-align: center;
+            padding: 0 8px;
+            gap: 6px;
+            box-shadow: 0px 4px 12px rgba(13, 10, 44, 0.06);
+            border-radius: 32px;}
+
+        .unbutton-filter {
+            background-color: transparent;
+            border: none;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            height: 44px;
+            appearance: none;
+          }
+          .unbutton-filter:hover svg path {
+            stroke: #E3E3E3; /* Change to a lighter color */
+            transition: stroke 0.3s ease-in-out; /* Smooth transition */
+            }
+            .unbutton-filter:active svg path {
+                stroke-width:3px; /* Change to a lighter color */
+                /*transition: stroke 0.3s ease-in-out; /* Smooth transition */
+                }
+        
+        .search{
+            width: 620px;
+            height: 44px; /* Match actual total height */
+            padding: 0 16px; /* Only left and right padding */
+            background-color: #0D0B26;
             border-radius: 25.6px;
             text-align: left;
-            align-content: center;
-            font-size: 16px;
-            font-weight: 10;
+            font-size: 24px;
             color: #ABB7C2;
             border-style: hidden;
         }
 
-        .icon {
+        .logo { /*changed class name from icon to logo*/
             width: 56px;
             height: 56px;
-            position: relative;
             margin-right: 12px; 
+            padding-left: 24px;
+
+        }
+        .signlog-container{
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            gap: 12px;
+            padding-right: 24px;
+
         }
         .signlog{ background-color: 0;
-                  position: relative;
-                  left:1250px;
-                  height:80px;
-                  width:184px;
-                  align-content: center;
+                    width:104px;
+                    height:40px;
+                    font-weight: 200;
+                    border-radius: 8px;
+                    text-align: center;
+                    border: 0px;
         }
-        .signup{ background-color: #E3E3E3;
+        
+        #signup{ background-color: #E3E3E3;
                  color:#2C2C2C;
-                 width:80px;
-                 height:40px;
-                 font-weight: 200;
-                 border-radius: 8px;
-                 align-content: flex-start;
-                 position: relative;
-                 text-align: center;
         }
-        .login{ background-color: ##2C2C2C;
+        #login{ background-color: #2C2C2C;
                  color:#E3E3E3;
-                 width:80px;
-                 height:40px;
-                 font-weight: 200;
-                 border-radius: 8px;
-                 align-content: flex-end;
-                 position: relative;
-                 text-align: center;
         }
