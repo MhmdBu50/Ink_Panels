@@ -6,7 +6,11 @@
             font-weight: 400;
             font-style: normal;
          }
-  
+
+
+    /* Navigation Bar CSS code section*/
+
+
         .menu {
             background-color: #34516C;
             height: 75px;
@@ -47,15 +51,23 @@
             border-radius: 0;
             height: 44px;
             appearance: none;
-          }
-          .unbutton-filter:hover svg path {
-            stroke: #E3E3E3; /* Change to a lighter color */
-            transition: stroke 0.3s ease-in-out; /* Smooth transition */
+            transition: transform .08s ease-in-out;
             }
-            .unbutton-filter:active svg path {
-                stroke-width:3px; /* Change to a lighter color */
-                /*transition: stroke 0.3s ease-in-out; /* Smooth transition */
-                }
+        .unbutton-filter:hover svg path {
+            stroke: #E3E3E3; /* Change to a lighter color */
+            }
+        .unbutton-filter:hover {
+                transform: scale(1.1);
+            }
+        .unbutton-filter:active {
+                transition: transform ease-out;
+                transform: scale(1.3);
+            }
+
+        .unbutton-filter:active svg path {
+                stroke-width:1.5px; /* Change to a lighter color */
+                transition: stroke 0.3s ease-in-out; /* Smooth transition */
+            }
         
         .search{
             width: 620px;
@@ -94,9 +106,18 @@
                     font-family:'Inter';
                     font-style: normal;
                     font-weight: 400;
-                    font-size: 24px;
+                    font-size: 23px;
                     line-height: 100%;
+                    transition: transform .12s ease-in-out;
         }
+        .signlog:hover{
+                    transform: scale(1.05);
+                    font-weight: 500;
+        }
+        .signlog:active{
+            transition: transform .02s ease-in-out;
+            transform: scale(0.87);
+}
         
         #signup{ background-color: #E3E3E3;
                  color:#1E1E1E;
@@ -104,26 +125,36 @@
         #login{ background-color: #2C2C2C;
                 color:#E3E3E3;
         }
+
+
+        /*Product-Details page CSS code section*/
+
+
         .details-container{
                 display: flex;
-                justify-content: center;
+                
+                justify-content: left;
                 width: 97.08%;
-                height: 1003.52%;
+                height: 83.52%;
+                /*width: 97.08%;
+                height: 1003.52%;*/
                 position: absolute;
-                left: 29px;
-                top: 100px;
+                left: 28px;
+                top: 101px;
                 background: rgba(237, 234, 227, 0.42);
         }
         .manga-img{
-            position: absolute;
-            width: 270px;
-            height: 413px;
-            left: 31px;
-            top: 31px;
+            position: relative;
+            width: 319px;
+            height: 489px;
+            left: 52px;
+            top: 123px;
             margin: 0;
             background: #1E1E1E;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
+
+
 
 
 
