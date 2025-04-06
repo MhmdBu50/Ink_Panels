@@ -40,9 +40,99 @@
             <button class="signlog" id="login">Log in</button>
         </div>
     </header>
-    <div class="details-container">
-        <figure class="manga-img"></figure>
+    <div class="details-grid-container">
+        <div class="details-container manga-img" style="grid-area: box-1;">
+            <img src="Sakamoto.jpg"></div>
+        <div class="details-container" style="grid-area: box-2;">
+            <h1 class="title">Sakamoto Days <span class="release-date">2020</span></h1>
+            <div class="meta-row">
+                <span>Author: Suzuki, Yuuto</span>
+                <span>Category: <a href="#"><u>Action</u></a>, <a href="#"><u style="height: 2px;">Comedy</u></a></span>
+                <span>Age Rating: 13+</span>
+            </div>
+              
+            <p class="details">
+                 Tarou Sakamoto was considered the greatest hitman of all time. Feared by many, he stood at the top of the underground world until he met and fell in love with a woman. As a result, Sakamoto abandoned his life of crime and now works as a convenience store clerk.<br> Leaving his shady past behind proves more difficult than Sakamoto initially imagined. Many of his former rivals and partners do not believe that he truly left the business and show up in hopes of taking him out. Barred from killing, Sakamoto must find creative ways to subdue his enemies and prevent them from bringing harm to his family, his store, and the small town he resides in. 
+            </p>
+        </div>
+            <div class="details-container money-lost" style="grid-area: box-3;">
+                <div class="selector-grid-container">
+                    <div class="details" style="grid-area: box3-1;">
+                        <span>Volume</span>
+                        <div class="dropdown-container" id="dropdown-volume">
+                            <button class="dropbtn dromdown-font" id="dropbtn-volume">
+                              <span id="selected-text-volume">1</span>
+                              <svg class="arrow" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.2614 15.6035L8.54883 10.6743H19.974L14.2614 15.6035Z" fill="#1D1B20"/>
+                              </svg>
+                            </button>
+                            <div class="dropdown-content">
+                              <a href="#" onclick="selectItem(this)">1</a>
+                              <a href="#" onclick="selectItem(this)">2</a>
+                              <a href="#" onclick="selectItem(this)">3</a>
+                            </div>
+                          </div>
+                    </div>
+                
+                    <div class=" details dropdown"  style="grid-area: box3-2;">
+                        <span>Quantity</span>
+                        <div class="dropdown-container" id="dropdown-quantity">
+                            <button class="dropbtn dromdown-font" id="dropbtn-quantity">
+                              <span id="selected-text-quantity">1</span>
+                              <svg class="arrow" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.2614 15.6035L8.54883 10.6743H19.974L14.2614 15.6035Z" fill="#1D1B20"/>
+                              </svg>
+                            </button>
+                            <div class="dropdown-content">
+                              <a href="#" onclick="selectItem(this)">1</a>
+                              <a href="#" onclick="selectItem(this)">2</a>
+                              <a href="#" onclick="selectItem(this)">3</a>
+                            </div>
+                          </div>
+                          
+                          
+                    </div>
+                
+                <div class="selector-container"  style="grid-area: box3-3;">
+                    <button class="you-are-normal">Add more volumes</button>
+                </div>
+                <div class="selector-container" style="grid-area: box3-4;">
+                    <button class="you-are-rich" class="add"><strong>Buy all Volumes</strong></button>
+                </div>
+                </div>
+            </div>
+        <div class="details-container" style="grid-area: box-4;"></div>
     </div>
 </body>
-
+<script>
+    // This handles opening/closing dropdowns
+    document.querySelectorAll(".dropbtn").forEach(button => {
+      button.addEventListener("click", (e) => {
+        e.preventDefault();
+        const container = button.closest(".dropdown-container");
+        container.classList.toggle("open");
+      });
+    });
+  
+    // This updates selected text
+    function selectItem(element) {
+      const text = element.textContent;
+      const container = element.closest(".dropdown-container");
+      const display = container.querySelector("span#selected-text, span[id^='selected-text']");
+      if (display) {
+        display.textContent = text;
+      }
+      container.classList.remove("open");
+    }
+  
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function (e) {
+      document.querySelectorAll(".dropdown-container.open").forEach(container => {
+        if (!container.contains(e.target)) {
+          container.classList.remove("open");
+        }
+      });
+    });
+  </script>
+  
 </html>
