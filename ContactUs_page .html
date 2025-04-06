@@ -1,13 +1,70 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>Contact us page</title>
-    <link href="css/Style.css" rel="stylesheet">
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact Form</title>
+     
+        <script>
+            function handleSubmit(event) {
+                event.preventDefault();
+                const email = "AAAAA@email.com";
+                const subject = "Contact Form Submission";
+                const firstName = document.querySelector('input[placeholder="First name"]').value;
+                const lastName = document.querySelector('input[placeholder="Last name"]').value;
+                const userEmail = document.querySelector('input[type="email"]').value;
+                const message = document.querySelector("textarea").value;
 
-</head>
-<body>
+                const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+                    `Name: ${firstName} ${lastName}\nEmail: ${userEmail}\nMessage: ${message}`
+                )}`;
 
-</body>
-
+                window.location.href = mailtoLink;
+            }
+        </script>
+    </head>
+    <body>
+        <form onsubmit="handleSubmit(event)">
+            <div class="container">
+                <div class="form-section">
+                    <h3>
+                        Need some help?<br />
+                        Contact us!
+                    </h3>
+                    <div class="input-group">
+                        <input type="text" placeholder="First name" required />
+                        <input type="text" placeholder="Last name" required />
+                    </div>
+                    <input type="email" placeholder="E-mail" required /><br />
+                    <div class="dec"><textarea placeholder="Description" required></textarea><br /></div>
+                    <div class="button-group">
+                        <button type="reset" class="cancel">Cancel</button>
+                        <button type="submit" class="submit">Submit</button>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h4>Dattebayo!</h4>
+                    <img
+                        src="C:\Users\HUAWEI\OneDrive - IMAM ABDULRAHMAN BIN FAISAL UNIVERSITY\Desktop\images\proxy-image.jpg"
+                        alt="Naruto Thumbs Up" />
+                    <div class="icons">
+                        <p>
+                            📍<a
+                                href="https://maps.app.goo.gl/VaBkHiuTfjfN2LRA7?g_st=com.google.maps.preview.copy"
+                                target="_blank"
+                                style="color: white; text-decoration: none"
+                                >Location: Imam Abdulrahman Bin Faisal University</a
+                            >
+                        </p>
+                        <p>📞<a href="tel:+966013646" style="color: white; text-decoration: none">+966013646</a></p>
+                        <p>
+                            💬<a href="mailto:AAAAA@email.com" style="color: white; text-decoration: none"
+                                >AAAAA@email.com</a
+                            >
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </body>
 </html>
