@@ -81,7 +81,7 @@
             text-align: left;
             font-size: 24px;
             color: #ABB7C2;
-            border-style: hidden;
+            border: none;
         }
 
         .logo { /*changed class name from icon to logo*/
