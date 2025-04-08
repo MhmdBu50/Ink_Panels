@@ -1,18 +1,21 @@
         /*Product-Details page CSS code section*/
-
+        .body-style{
+            display: flex;
+            justify-content: center;
+        }
 
         .details-grid-container{
             position: absolute;
-            top: 101px;
+            top: 95px;
             width: 97.08%;
-            height: 88%;
-            padding-top: 30px;
+            height: 88vh;
+            padding-top: 20px;
             padding-right: 1%;
             display: flex;
             justify-content: center;
             display: grid;
             background: rgba(237, 234, 227, 0.42);
-            grid-template-columns: 17.12% 48.79% 27.91%;
+            grid-template-columns: 17.12% 48.79% 28%;
             grid-template-rows: 53.26% 39.63%;
             gap: 38px;
             grid-template-areas: "box-1 box-2 box-3" 
@@ -98,27 +101,28 @@
             border-radius: 32px;  
             display: flex;
             align-items:top;    
-            align-content: center;
-            gap: 10px;
-            padding-top: 33px;
+            margin: auto;
         }
         .selector-grid-container{
             border: 0px;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
+            justify-content: space-around;
+            margin: 6% 6% 0 6%;
             display: grid;
             grid-template-columns: 209px 209px;
-            grid-template-rows: 45px 200px 400px 400px;
+            grid-template-rows: 45px 200px 600px 150px;
             gap: 28px;
             grid-template-areas: "box3-1 box3-2" 
-                                 "box3-3 box3-4";
+                                 "box3-3 box3-4"
+                                 "box3-5 box3-5"
+                                 "box3-6 box3-6";
         }
 
         .dropdown-container {
             display: inline-block;
             position: relative;
+            min-width: 50px;
             width: 100px;
         }
         
@@ -219,6 +223,34 @@
             background: linear-gradient(251.27deg, #FFEFCD 13.32%, #FFC955 51.09%, #997933 107.86%);
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             border-radius: 35px;
+            border: 0;
+        }
+
+        #total-price{
+            display: flex;
+            margin: 0 auto;
+            align-items: end;
+
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 36px;
+            line-height: 44px;
+
+            color: #000000;
+        }
+        .add-to-cart{
+            display: flex;
+            justify-content: left;
+            align-items: end;
+        }
+
+        #add-to-cart{
+            
+            width: 100%;
+            height: 73.94px;
+            background: rgba(194, 217, 223, 0.5);
+            border-radius: 23px;
             border: 0;
         }
         
