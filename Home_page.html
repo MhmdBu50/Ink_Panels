@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home page</title>
     <link href="css/Style.css" rel="stylesheet">
     <link href="css/HomePage.css" rel="stylesheet">
 
 </head>
 <body>
+
     <header class="menu">
         <svg class="logo" width="93" height="83" viewBox="0 0 93 83" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7.75 10.375H31C35.1109 10.375 39.0533 11.8324 41.9602 14.4267C44.867 17.0209 46.5 20.5395 46.5 24.2083V72.625C46.5 69.8734 45.2752 67.2345 43.0951 65.2888C40.915 63.3431 37.9581 62.25 34.875 62.25H7.75V10.375Z" fill="#D9D9D9"/>
@@ -43,7 +44,8 @@
     </header>
 
     <div id="yellow_background">
-           
+        <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+
         <div id="comic_manga" class="comic_manga-font">
             <button class="magnga_comic">Comic</button>
             <button class="magnga_comic">Manga</button>
@@ -56,7 +58,33 @@
                 </svg>
             </button>
         </div>
-    </div>
+    </div>       
+
+<div id="sideNav" class="sideNav">
+
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+<div id="nav-contant">
+<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
+<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
+<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
+<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
+<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
+<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
+
+
+</div>
+
+</div>
+
+
+
+
+<div id="nav">
+
+
+
+
 
     <div class="container">
         <div><button class="img_button"><img src="/images/aka chan.png" class="img"><div id="title"><p>aka chan boku</p></div></button></div>
@@ -75,19 +103,29 @@
         <div><button class="img_button"><img src="/images/aka chan.png"class="img"><div id="title"><p>acka chan boku</p></button></div>
         <div><button class="img_button"><img src="/images/world trigger.png"class="img"><div id="title"><p>acka chan boku</p></button></div>
         <div><button class="img_button"><img src="/images/fist of the north star.png"class="img"><div id="title"><p>acka chan boku</p></button></div>                                                
-     
         </div>
-        
         <footer>
             <div>
                 <details>
                 <summary><label><a>Contact Us</a></label></summary><ul><li><a href="tel:+966013646">+999013646</a></li><li><a href="mailto:AAAAA@email.com">AAAAA@email.com</a></li></ul></details>
                 <label><a>About Us</a></label>
             </div>
-        
+
         </footer>
+    </div>
 
+<script>
+    function openNav(){
+        document.getElementById("sideNav").style.width="250px";
+        document.getElementById("nav").style.marginLeft="250px";
 
+    }
+    function closeNav(){
+        document.getElementById("sideNav").style.width="0px";
+        document.getElementById("nav").style.marginLeft="0px";
+
+    }
+</script>
 </body>
 
 </html>
