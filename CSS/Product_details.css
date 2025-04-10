@@ -1,23 +1,19 @@
         /*Product-Details page CSS code section*/
         .body-style{
-            display: flex;
             justify-content: center;
         }
 
         .details-grid-container {
-            position: absolute;
-            top: 95px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 97.08%;
-            --details-container-height: 88vh;
+            position: relative; /* Change from absolute */
+            margin: 1.5vh auto 0; /* 95px top margin for header space */
+            width: 96%;
+            --details-container-height: calc(100vh - 130px);
             height: var(--details-container-height);
-            padding-top: 20px;
-            padding-right: 1%;
+            padding: 20px 1% 0 1%;
             justify-content: center;
             display: grid;
             background: rgba(237, 234, 227, 0.42);
-            grid-template-columns: 17.12% 48.79% clamp(280px, 28%, 700px);
+            grid-template-columns: 17.12% 1fr clamp(280px, 28%, 700px);
             grid-template-rows: 53.26% 39.63%;
             gap: 2.5vw;
             grid-template-areas: 
@@ -27,6 +23,7 @@
         
 
         .manga-img>img{
+            margin-left: 1vw;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
             object-fit: cover;
             width: 100%;
@@ -112,7 +109,7 @@
             justify-content: space-around;
             margin-top: 6%;
             display: grid;
-            grid-template-columns: auto auto;
+            grid-template-columns: 1fr 1fr;
             grid-template-rows: 45px auto 1fr auto;
             padding: 0 clamp(16px, 16px, 50px); /* Add horizontal spacing */
             gap: 28px;
@@ -257,10 +254,7 @@
             font-size: clamp(1.5rem, 2vw, 2rem);
         }
         .add-to-cart{
-            position: sticky;
-            display: flex;
-            justify-content: center;
-            align-items: end;
+            align-self: end;
             margin-bottom: 10%;
         }
 
@@ -289,25 +283,35 @@
             color: #000000;
             width: 703px;
             padding-bottom: 5px;
-
+            margin-top: 0;
+        }
+        .img{
+            width: 100%;
+            height: 100%;
+           
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+        object-fit: cover;
+        object-position: center;
+        display: block; 
+         
         }
 
         .More-container{
-            display: flex;
-            justify-content: left;
-            gap: 2.5vw;
+            display: grid;
+            grid-template-columns:10vw 10vw 10vw 10vw 10vw;
+            gap: 1.7vw;
             align-items: center;
         }
         
         .img_button{
-
+            object-fit:cover;
             background: none;
             border: 3px solid transparent;
             box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
             display: grid;
             position: relative;
             grid-template-rows: 1fr ;
-            width: 9vw;
+            width: 10vw;
             height: 26vh;
             padding: 0px;
             overflow: hidden;
