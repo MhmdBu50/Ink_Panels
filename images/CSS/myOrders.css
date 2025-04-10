@@ -1,0 +1,32 @@
+.container{
+    display: flex;
+   flex-direction: column;
+   gap: 20px;
+}
+.imgButton{
+    display: grid;
+    width: 90%;
+    grid-template-columns:200px 80%;
+    grid-template-rows: 50px 250px;
+}
+.img{
+    grid-row-start: 1;
+    grid-row-end: 3;
+    object-fit: cover;
+    width: 200px;
+    height: 100%;
+    margin-left: 0.5%;
+}
+#title{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+#detiles{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+
+}
