@@ -13,7 +13,7 @@
             justify-content: center;
             display: grid;
             background: rgba(237, 234, 227, 0.42);
-            grid-template-columns: 0.3fr 1fr clamp(280px, 28%, 700px);
+            grid-template-columns: 0.3fr 1fr 0.5fr;
             grid-template-rows: 53.26% 39.63%;
             gap: 2.5vw;
             grid-template-areas: 
@@ -21,6 +21,7 @@
                 "box-4 box-4 box-3";
         }
         
+            /*box-1 stuff*/
 
         .manga-img>img{
             margin-left: 1vw;
@@ -28,6 +29,8 @@
             object-fit: cover;
             width: 100%;
         }
+
+            /*box-2 stuff*/
 
         .title{/* Sakamoto Days */
             height: 88px;
@@ -75,19 +78,25 @@
             margin-right: 0;
         }
         
-        .details{
+        .inter-font{
             font-family: 'Inter';
             font-size: 24px;
             line-height: 29px;
+        }
+
+        .details{
             text-align: justify;
         }
 
         .overflowen{
             overflow: scroll;
         }
+
+            /*box-3 stuff*/
+
         .dromdown-font{
             font-family: 'Inter';
-            font-size: 32px;
+            font-size: clamp(1.75rem, 1vw + 1.25rem, 2rem);
             line-height: 39px;
             text-align: center;
         }
@@ -124,10 +133,15 @@
         }
 
         .dropdown-container {
-            display: inline-block;
+            display:inline-flex;
             position: relative;
+            justify-content: end;
             min-width: 50px;
-            width: 100px;
+            width: 33%;
+        }
+
+        .vol-qua{ /*centers the Volume and Quantity box content*/
+            text-align: center;
         }
 
         .dropbtn {
@@ -136,8 +150,9 @@
             border: none;
             border-radius: 10px;
             background-color: #e0e0e0;
-            display: flex;
+            display:inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px; /* space between text and arrow */
             cursor: pointer;
             padding: 0 10px;
@@ -154,8 +169,9 @@
         .arrow {
             width: 30px;
             height: 50px;
-            position: absolute;
-            margin-left: 55%;
+            position:fixed;
+            justify-self: right;
+            margin-left: 2.3%;
             transform: rotate(90deg);
             transition: transform 0.2s ease;
         }
@@ -285,7 +301,7 @@
             line-height: 40px;
             border-bottom: 1.5px solid #000000;
             color: #000000;
-            width: 703px;
+            width: 50vw;
             padding-bottom: 5px;
             margin-top: 0;
         }
@@ -293,10 +309,10 @@
             width: 100%;
             height: 100%;
            
-        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-        object-fit: cover;
-        object-position: center;
-        display: block; 
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+            object-fit: cover;
+            object-position: center;
+            display: block; 
          
         }
 
