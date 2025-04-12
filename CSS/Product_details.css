@@ -33,17 +33,13 @@
             /*box-2 stuff*/
 
         .title{/* Sakamoto Days */
-            height: 88px;
-            padding: 10;
-            margin: 0;
-            left: calc(50% - 484px/2 - 306px);
-            top: calc(50% - 88px/2 - 373px);
+            margin-top: 0;
+            margin-bottom: auto;
             
             font-family: 'Outfit';
             font-style: normal;
             font-weight: 400;
             font-size: 64px;
-            line-height: 81px;
 
             color: #000000;
         }
