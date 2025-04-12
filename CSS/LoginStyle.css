@@ -1,52 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Joan&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
 body {
-    margin: 0;
+
     display: flex;
-    position: relative;
-    width: 1920px;
-    height: 1080px;
-    background: linear-gradient(249.7deg, #315679 18.66%, #223445 85.75%);
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding:0 20px;
+    height: 100vh;
+    box-sizing: border-box;
+
+    background:
+    linear-gradient(249.7deg, #315679 18.66%, #223445 85.75%);
     backdrop-filter: blur(2px);
+
 }
 
 .sidebar {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: relative;
     width: 494px;
-    height: 934px;
-    left: 151px;
-    top: 73px;
+    height: calc(100vh - 40px); /* Subtract vertical padding from body */
+    min-height: 600px; /* Prevent from getting too small */
+    max-height: 1000px; /* Prevent from getting too large */
+    
     border-radius: 28px;
     background: linear-gradient(to bottom, #4c5c72, #637185);
     z-index: 2;
 }
 
 .sidebar h1 {
-    position: absolute;
+    position: relative;
     width: 457px;
-    height: 109px;
-    left: calc(50% - 457px/2 - 0.5px);
-    top: calc(50% - 109px/2 - 423.5px);
+    left: 18px;
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 700;
     font-size: 64px;
-    line-height: 120%;
     display: flex;
-    align-items: flex-end;
     letter-spacing: 0.05em;
     color: #FFFFFF;
+    margin-bottom: 0;
 }
 
 .sidebar p {
-    position: absolute;
+    position: relative;
+    margin-top: 0;
     width: 396px;
-    height: 165px;
-    left: 18px;
-    top: calc(50% - 165px/2 - 253.5px);
     font-family: 'Outfit';
     font-style: normal;
     font-weight: 700;
     font-size: 48px;
-    line-height: 120%;
     display: flex;
     align-items: flex-end;
     letter-spacing: 0.05em;
@@ -54,20 +62,21 @@ body {
 }
 
 .sidebar-image {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 500px;
-    height: auto;
+    margin-top: auto; /* Pushes image to bottom */
+    padding: 30px;
+    width: 90%; /* Adjust this percentage as needed */
+    max-width: 400px; /* Prevents image from getting too large */
+    display: flex;
+    justify-content: center
 }
 
 .main {
-    position: absolute;
+    position: relative;
     width: 1192px;
-    height: 858px;
-    right: 104px;
-    bottom: 111px;
+    height: calc(100vh - 40px - 76px); /* Account for body padding and height difference */
+    min-height: 500px;
+    max-height: 900px;
+    
     background: #FFFFFF;
     border-radius: 0px 28px 28px 0px;
     display: flex;
