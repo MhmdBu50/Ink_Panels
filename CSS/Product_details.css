@@ -85,7 +85,7 @@
         }
 
         .overflowen{
-            overflow: scroll;
+            overflow: auto;
         }
 
             /*box-3 stuff*/
