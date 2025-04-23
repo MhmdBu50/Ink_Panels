@@ -77,18 +77,26 @@
 
 </div>
 
+<?php
 
+    $query="SELECT MC_ID , title ,cover_image FROM manga_comic ";
+
+    if(!$conn=mysqli_connect("localhost","root","root"))
+        die("cannot connect to data base");
+    if(!($database=mysqli_select_db($conn,"ink_panels")))
+        die("cannot connect to db");
+    $result=mysqli_query($conn,$query);
+
+?>
 
 
 <div id="nav">
 
 
 
-
-
     <div class="container">
         
-        <div><a href="Product_details.html"><button class="img_button"><img src="/images/aka chan.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
+        <!-- <div><a href="Product_details.html"><button class="img_button"><img src="/images/aka chan.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
         <div><a href="Product_details.html"><button class="img_button"><img src="/images/dragon ball.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
         <div><a href="Product_details.html"><button class="img_button"><img src="/images/hajme no ippo.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
         <div><a href="Product_details.html"><button class="img_button"><img src="/images/world trigger.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
@@ -99,7 +107,35 @@
         <div><a href="Product_details.html"><button class="img_button"><img src="/images/hajme no ippo.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
         <div><a href="Product_details.html"><button class="img_button"><img src="/images/world trigger.png" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
         <div><a href="Product_details.html"><button class="img_button"><img src="/images/the beginning after the end.jpg" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
-        <div><a href="Product_details.html"><button class="img_button"><img src="/images/Sakamoto.jpg" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div>
+        <div><a href="Product_details.html"><button class="img_button"><img src="/images/Sakamoto.jpg" class="img"><div id="title"><p>aka chan boku</p></div></a></button></div> -->
+        <?php
+
+while ($row = mysqli_fetch_assoc($result)) {
+
+    $mimetype=[
+        'jpg'=>"image/jpg",
+        'jpeg'=>"image/jepg",
+        'png'=>"image/png",
+        'gif'=>"image/gif",
+        'webp'=>"image/webp"
+    ];
+
+    echo '
+    <div>
+        <a href="Product_details.html?id='.$row['MC_ID'].'">
+            <button class="img_button">
+                <!-- Display binary image directly -->
+                <img src="data: $mimetype ;base64,'.base64_encode($row['cover_image']).'" 
+                     class="img" 
+                     alt="'.htmlspecialchars($row['title']).'">
+                <div id="title">
+                    <p>'.htmlspecialchars($row['title']).'</p>
+                </div>
+            </button>
+        </a>
+    </div>';
+}
+?>
         
     </div>
         <footer>
