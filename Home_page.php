@@ -1,3 +1,10 @@
+<?php
+
+    session_start();
+// echo '<pre>Session Contents: ';
+// print_r($_SESSION);
+// echo '</pre>';
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +45,14 @@
             </button>           
         </div>
         <div class="signlog-container">
-            <button class="signlog" id="signup">Sign up</button>
-            <button class="signlog" id="login">Log in</button>
-        </div>
+            <?php if(isset($_SESSION['user_ID'])):?>
+
+            <a href="log_out.php"><button class="signlog" id="login">Log Out</button></a>
+            <?php else:  ?>
+                <a href="sign_up.php"><button class="signlog" id="signup">Sign up</button></a>
+                <a href="login_page.php"><button class="signlog" id="login">Log in</button></a>
+           <?php endif; ?>
+            </div>
     </header>
 
     <div id="yellow_background">
@@ -122,7 +134,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
     echo '
     <div>
-        <a href="Product_details.html?id='.$row['MC_ID'].'">
+        <a href="Product_details.php?id='.$row['MC_ID'].'">
             <button class="img_button">
                 <!-- Display binary image directly -->
                 <img src="data: $mimetype ;base64,'.base64_encode($row['cover_image']).'" 

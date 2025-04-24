@@ -1,3 +1,25 @@
+<?php
+  session_start();
+
+  // echo '<pre>Session Contents: ';
+  // print_r($_SESSION);
+  // echo '</pre>';
+
+//   $product_id=$_get['id']?? null;
+
+//   if (!is_numeric($product_id)) {
+//     die("Invalid product ID");
+// }
+
+// $query="SELECT * FROM manga_comic WHERE MC_ID=?";
+// $stmt = $conn->prepare($query);
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,9 +59,14 @@
             </button>           
         </div>
         <div class="signlog-container">
-            <button class="signlog" id="signup">Sign up</button>
-            <button class="signlog" id="login">Log in</button>
-        </div>
+            <?php if(isset($_SESSION['user_ID'])):?>
+
+            <a href="log_out.php"><button class="signlog" id="login">Log Out</button></a>
+            <?php else:  ?>
+                <a href="sign_up.php"><button class="signlog" id="signup">Sign up</button></a>
+                <a href="login_page.php"><button class="signlog" id="login">Log in</button></a>
+           <?php endif; ?>
+            </div>
     </header>
     <div class="details-grid-container">
         <div class=" manga-img" style="grid-area: box-1;">

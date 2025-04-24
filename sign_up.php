@@ -28,6 +28,7 @@
 
             $errors=[];
 
+            
             if(empty($first_name)) $errors[]="First name is required";
             if(empty($last_name)) $errors[]="Last name is required";
             if(!filter_var($email,FILTER_VALIDATE_EMAIL)) $errors[]="Invalid email format";
@@ -54,22 +55,35 @@
 
                             $hashed_password = password_hash($password,PASSWORD_DEFAULT);
 
-                        $stmt = $db->prepare("INSERT INTO user (First_name,Last_name,Email,password_hash) VALUES(:First_name,:Last_name,:Email,:password_hash)");
-               
-                        $stmt->bindParam(':First_name',$first_name);
-                        $stmt->bindParam(':Last_name',$last_name);
-                        $stmt->bindParam(':Email',$email);
-                        $stmt->bindParam(':password_hash',$hashed_password);
+                        
+                        $checkmail=$db->prepare("SELECT Email FROM user    WHERE email= :email");
+                        $checkmail->bindParam(':email',$email);
+                        $checkmail->execute();
 
-                        $stmt->execute();
-                        echo "<p class='success'>Registration successful! Welcome, $first_name!</p>";
+                        if($checkmail->rowCount()>0){
+                            $errors[]="Email address is already registered";
+                        }else{
+
+                            $stmt = $db->prepare("INSERT INTO user (First_name,Last_name,Email,password_hash) VALUES(:First_name,:Last_name,:Email,:password_hash)");
+
+                            $stmt->bindParam(':First_name',$first_name);
+                            $stmt->bindParam(':Last_name',$last_name);
+                            $stmt->bindParam(':Email',$email);
+                            $stmt->bindParam(':password_hash',$hashed_password);
+    
+                      
+    
+                            $stmt->execute();
+                            echo "<p class='success'>Registration successful! Welcome, $first_name!</p>";
+                        }
+                       
                 
             }catch(PDOException $e){
                 if($e->getCode()==23000)
                     echo"<p class='error'>This email is already registered.</p>";
                  else {
                     echo "<p class='error'>Error: " . $e->getMessage() . "</p>"; // Show actual error
-    error_log("Database error: ".$e->getMessage());
+        error_log("Database error: ".$e->getMessage());
                 }
             }
         }
@@ -82,7 +96,7 @@
     ?>
 
     <div class="main">
-        <form class="login-form" method="post" >
+        <form class="login-form" method="post">
             <div class="form-input-row">
                 <div class="form-input">
                     <label for="first-name">First Name</label>
@@ -119,7 +133,7 @@
 
             <div class="buttons-container">
                 <button type="submit" class="login-button">Sign Up</button>
-                <button type="button" class="sign-up-button" onclick="location.href='login_page.html'">Back to Login</button>
+                <button type="button" class="sign-up-button" onclick="location.href='login_page.php'">Back to Login</button>
             </div>
         </form>
     </div>
