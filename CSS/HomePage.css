@@ -94,6 +94,7 @@ display: block;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.2s ease;
+    font-size: min (2vw,20px);
 }
 .img_button:hover #title {
     align-self: end;
@@ -107,7 +108,7 @@ display: block;
     font-family: 'Joan';
     font-style: normal;
     font-weight: 400;
-    font-size: 24px;
+    /* font-size: 24px; */
     line-height:1px;
 
 color: rgba(255,255,255,1);
