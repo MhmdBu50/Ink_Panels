@@ -1,4 +1,8 @@
+<?php
 
+require_once "database.php";
+
+?>
 
 <!DOCTYPE html>
 <html>
@@ -49,9 +53,7 @@
                 
   
 
-                    $db=new PDO('mysql:host=localhost;dbname=ink_panels','root','root');
-
-                        $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            
 
                             $hashed_password = password_hash($password,PASSWORD_DEFAULT);
 

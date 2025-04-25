@@ -1,3 +1,100 @@
+<?php
+    session_start();
+
+  require_once 'database.php';
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+
+
+        if(isset($_POST['delete_id'])){
+            $delete=$_POST['delete_id'];
+            $stmt=$db->prepare("DELETE FROM manga_comic WHERE MC_ID=:id");
+            $stmt->bindParam(":id",$delete,PDO::PARAM_INT);
+            $stmt->execute();
+            
+        }else{
+
+
+        $title=htmlspecialchars($_POST["title"]);
+        $author=htmlspecialchars($_POST["author"]);
+        $genre = isset($_POST['genre']) ? implode(',', $_POST['genre']) : '';
+        $type=htmlspecialchars($_POST["type"]);
+        $stock=htmlspecialchars($_POST["stock"]);
+        $price=htmlspecialchars($_POST["price"]);
+        $dec=htmlspecialchars($_POST["dec"]);
+        $date=htmlspecialchars($_POST["date"]);
+
+        if(isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+            $image = file_get_contents($_FILES['image']['tmp_name']);
+        } else {
+            $errors[] = "Error uploading image";
+        }
+        
+
+  
+
+        $errors=[];
+
+        if(empty($title)) $errors[]="error";
+        if(empty($author)) $errors[]="error";
+        if(empty($genre)) $errors[]="error";
+        if(empty($type)) $errors[]="error";
+        if($stock<=0) $errors[]="error";
+        if(empty($image)) $errors[]="error";
+        if($price<=0) $errors[]="error";
+        if(empty($dec)) $errors[]="error";
+        if(empty($date)) $errors[]="error";
+
+        if(empty($errors))
+        {   
+            try{
+
+
+            $edit=$db->prepare("INSERT INTO manga_comic(title , author , price , genre , stock_quantity , release_date , cover_image ,description,type) 
+                                                VALUE(:title,:author,:price,:genre,:stock,:date,:image,:dec,:type)");
+
+                // $stmt->bindParam(":title")
+                $edit->bindParam(":title", $title);
+                $edit->bindParam(":author", $author);
+                $edit->bindParam(":price", $price, PDO::PARAM_STR);
+                $edit->bindParam(":genre", $genre);
+                $edit->bindParam(":stock", $stock, PDO::PARAM_INT);
+                $edit->bindParam(":date", $date);
+                $edit->bindParam(":image", $image,PDO::PARAM_LOB);
+                $edit->bindParam(":dec", $dec);
+                $edit->bindParam(":type", $type);
+                $edit->execute();
+                echo"DONE";
+            }catch(PDOException $e){
+                echo "<p class='error'>Database error: " . $e->getMessage() . "</p>"; 
+                error_log("Database error: " . $e->getMessage());
+            }
+            
+        }
+
+    }}
+
+
+
+
+
+    $query="SELECT MC_ID ,title , author , price , genre , stock_quantity , release_date ,description,type FROM manga_comic ";
+    $query="SELECT MC_ID ,title , author , price , genre , stock_quantity , release_date ,description,type FROM manga_comic ";
+
+
+        $stmt=$db->prepare($query);
+        $stmt->execute();
+
+
+
+
+
+
+
+
+
+
+    ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -45,7 +142,11 @@
         </div><div></div>
         
     </header>
-    <form>
+    
+
+    
+    <form method="POST" enctype="multipart/form-data">
+
         <div id="popup" class="overlay">
             <div class="content-up">
                     
@@ -54,16 +155,16 @@
                 <div>
                     <div>
                         <label>Title</label><br>
-                        <input type="text" class="type-up" required>
+                        <input type="text" name="title"  class="type-up" required>
                     </div>
                     <div>
                         <label>author</label><br>
-                        <input type="text" class="type-up"  required>
+                        <input type="text" class="type-up" name="author"  required>
                     </div>
 
                     <div>
                         <label>Genre</label><br>
-                        <select class="type-up" multiple>
+                        <select class="type-up" multiple name="genre[]">
                             <option value="Action">Action</option>
                             <option>Drama</option>
                             <option>Comedy</option>
@@ -78,23 +179,42 @@
                             <option>Suspense</option>
                         </select>
                     </div>
+
+                    <div>
+                        <label>Type</label><br>
+                        <select class="type-up" name="type">
+                            <option>Manga</option>
+                            <option>Comic</option>
+                        </select>
+                    </div>
+
+
+                    
+
                     <div>
                         <label>Stock</label><br>
-                        <input type="number" class="type-up">
+                        <input type="number" class="type-up" name="stock">
                     </div>
+
+                    <div>
+                            <label>Select image for manga/comic</label>
+                            <input type="file" name="image" accept="image/*"  class="type-up"   required>
+                    </div>
+
+
                     <div>
                         <label>Unit Price</label><br>
-                        <input type="number" class="type-up">
+                        <input type="number" class="type-up" name="price">
                     </div>
                     <div>
                         <label>Release Date</label><br>
-                        <input type="date" class="type-up">
+                        <input type="date" class="type-up" name="date">
                     </div>
                     <div>
                         <label>Description</label><br>
-                        <textarea>What were you reading about?</textarea>
+                        <textarea placeholder="What were you reading about?"  name="dec"></textarea>
                     </div>
-                    <button class="save-btn" type="button">Save Changes</button>
+                    <button class="save-btn" type="submit">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -120,6 +240,10 @@
                 <th class="th-prod">Stock</th>
                 <th class="th-prod">Unit Price</th>
                 <th class="th-prod">Release Date</th>
+                <th class="th-prod">author</th>
+                <th class="th-prod">type</th>
+
+                
                 <th class="th-prod">
                     <div class="search-container-table">
                         <button class="search-and-filter-buttons">  
@@ -145,42 +269,35 @@
                     </div>
                 </th>
             </tr>
+            <?php while($row=$stmt->fetch(PDO::FETCH_ASSOC)){ ?>
+
             <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
+                <td class="td-prod"><?php echo $row['MC_ID'];?></td>
+                <td class="td-prod"><?php echo $row['title'];?></td>
+                <td class="td-prod"><?php echo $row['genre'];?></td>
+                <td class="td-prod"><?php echo $row['stock_quantity'];?></td>
+                <td class="td-prod"><?php echo $row['price'];?></td>
+                <td class="td-prod"><?php echo $row['release_date'];?></td>
+                <td class="td-prod"><?php echo $row['author'];?></td>
+                <td class="td-prod"><?php echo $row['type'];?></td>
+             
                 <td class="img-container">
-                    <button class="buttonmg open-up"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
+
+                <form method="post">
+                    <input type="hidden" name="edit_id" value="<?= $row['MC_ID']; ?>">
+                    <button class="buttonmg open-up" ><img src="images\edit.png"  alt="edit"></button>
+
+                    </form>
+                <form method="post" onsubmit="return confirmdeletion();">
+                    <input type="hidden" name="delete_id" value="<?= $row['MC_ID']; ?>">
+                    <button class="buttonmg" type="submit" name="delete"><img src="images\delete.png" name="delet" alt="delete"></button>
+                    </form>
+                    
+
                 </td>
             </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">2</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
+            <?php } ?>
+           
             
         </table>
     </div>
@@ -205,6 +322,10 @@
             modal.style.display = 'none';
             }
         });
+
+        function confirmdeletion(){
+            return confirm("To erase this creation, to sever the ties of existence itself... Do you grasp the magnitude of what you are about to do? Once you erase this, there will be no returning. A soul extinguished, a life forgotten, wiped from the very fabric of time itself. Do you truly have the resolve to carry this sin? Is your hand steady enough to cast them into oblivion? No mercy, no second chances. You must ask yourself... can you bear the weight of their absence, forever? Would this work for your scene?")
+        }
     </script>
 
 
