@@ -36,7 +36,7 @@
        .itembox{ 
 
             display: grid;
-                grid-template-columns:200px 1050px 100px ;
+                grid-template-columns: 1fr 5.8fr 0.2fr;
                 grid-template-rows: 50px 150px 50px;
                  background-color:#C0C0C0;
                  height:250px;

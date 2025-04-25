@@ -6,6 +6,8 @@
     <title>Managing products page</title>
     <link href="CSS\Managing_Products.css" rel="stylesheet">
     <link href="CSS\Style.css" rel="stylesheet">
+
+
 </head>
 <body>
     
@@ -43,44 +45,62 @@
         </div><div></div>
         
     </header>
-    
-    <div id="popup" class="overlay">
-        <div class="content-up">
-                
-            <button id="close-up">close</button>
+    <form>
+        <div id="popup" class="overlay">
+            <div class="content-up">
+                    
+                <button id="close-up">close</button>
 
-            <div>
                 <div>
-                    <label>Title</label><br>
-                    <input type="text" class="type-up" required>
+                    <div>
+                        <label>Title</label><br>
+                        <input type="text" class="type-up" required>
+                    </div>
+                    <div>
+                        <label>author</label><br>
+                        <input type="text" class="type-up"  required>
+                    </div>
+
+                    <div>
+                        <label>Genre</label><br>
+                        <select class="type-up" multiple>
+                            <option value="Action">Action</option>
+                            <option>Drama</option>
+                            <option>Comedy</option>
+                            <option>Adventure</option>
+                            <option>Fantasy</option>
+                            <option>Mystery</option>
+                            <option>Sports</option>
+                            <option>Romance</option>
+                            <option>Sci-Fi</option>
+                            <option>Slice of Life</option>
+                            <option>Supernatural</option>
+                            <option>Suspense</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Stock</label><br>
+                        <input type="number" class="type-up">
+                    </div>
+                    <div>
+                        <label>Unit Price</label><br>
+                        <input type="number" class="type-up">
+                    </div>
+                    <div>
+                        <label>Release Date</label><br>
+                        <input type="date" class="type-up">
+                    </div>
+                    <div>
+                        <label>Description</label><br>
+                        <textarea>What were you reading about?</textarea>
+                    </div>
+                    <button class="save-btn" type="button">Save Changes</button>
                 </div>
-                <div>
-                    <label>Genre</label><br>
-                    <select class="type-up">
-                        <option>Manga</option>
-                        <option>Comic</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Stock</label><br>
-                    <input type="number" class="type-up">
-                </div>
-                <div>
-                    <label>Unit Price</label><br>
-                    <input type="number" class="type-up">
-                </div>
-                <div>
-                    <label>Release Date</label><br>
-                    <input type="date" class="type-up">
-                </div>
-                <div>
-                    <label>Description</label><br>
-                    <textarea>What were you reading about?</textarea>
-                </div>
-                <button class="save-btn" type="button">Save Changes</button>
             </div>
         </div>
-    </div>
+
+    </form>
+
 
     <div class="table-wrap">
         <table class="table-prod">
@@ -161,246 +181,7 @@
                     <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
                 </td>
             </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
-            <tr class="tr-prod">
-                <td class="td-prod">1</td>
-                <td class="td-prod">Dragon Ball - V01</td>
-                <td class="td-prod">Manga</td>
-                <td class="td-prod">55</td>
-                <td class="td-prod">19.99 SAR</td>
-                <td class="td-prod">2001/9/11</td>
-                <td class="img-container">
-                    <button class="buttonmg"><img src="images\edit.png" alt="edit"></button>
-                    <button class="buttonmg"><img src="images\delete.png" alt="delete"></button>
-                </td>
-            </tr>
+            
         </table>
     </div>
 
@@ -425,6 +206,8 @@
             }
         });
     </script>
+
+
 
 </body>
 
