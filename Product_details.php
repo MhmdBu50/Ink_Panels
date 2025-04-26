@@ -145,7 +145,7 @@
 
     <div class="details-grid-container">
         <div class=" manga-img" style="grid-area: box-1;">
-            <img src="data: $mimetype; base64, <?php echo base64_encode($row['cover_image']); ?>">
+            <img src="data: $mimetype; base64,<?php echo base64_encode($row['cover_image']); ?>">
             </div>
         <div class="details-container overflowen" style="grid-area: box-2;">
             <h1 class="title"><?php echo $row['title']?> <span class="release-date"><?php echo substr($row['release_date'], 0,4)?></span></h1>
