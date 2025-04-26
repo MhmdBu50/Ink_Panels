@@ -1,22 +1,25 @@
 <?php
   session_start();
+  require_once 'database.php'; // Include your database connection file
 
-  // echo '<pre>Session Contents: ';
-  // print_r($_SESSION);
-  // echo '</pre>';
+  $product_id = $_GET['id'] ?? null;
 
-//   $product_id=$_get['id']?? null;
+  if (!is_numeric($product_id)) {
+    die("Invalid product ID");
+  }
+  
+  $conn=$db->prepare("SELECT * FROM manga_comic WHERE MC_ID=?"); 
+  $conn->execute([$product_id]);
 
-//   if (!is_numeric($product_id)) {
-//     die("Invalid product ID");
-// }
+  $mimetype=[
+    'jpg'=>"image/jpg",
+    'jpeg'=>"image/jepg",
+    'png'=>"image/png",
+    'gif'=>"image/gif",
+    'webp'=>"image/webp"
+  ];
 
-// $query="SELECT * FROM manga_comic WHERE MC_ID=?";
-// $stmt = $conn->prepare($query);
-
-
-
-
+  $row = $conn->fetch(PDO::FETCH_ASSOC)
 
 ?>
 
@@ -70,19 +73,18 @@
     </header>
     <div class="details-grid-container">
         <div class=" manga-img" style="grid-area: box-1;">
-            <img src="/images/Sakamoto.jpg">
+            <img src="data: $mimetype; base64, <?php echo base64_encode($row['cover_image']); ?>">
             </div>
         <div class="details-container overflowen" style="grid-area: box-2;">
-            <h1 class="title">Sakamoto Days <span class="release-date">2020</span></h1>
+            <h1 class="title"><?php echo $row['title']?> <span class="release-date"><?php echo substr($row['release_date'], 0,4)?></span></h1>
             <div class="meta-row">
-                <span>Author: Suzuki, Yuuto</span>
-                <span>Category: <a href="#"><u>Action</u></a>, <a href="#"><u style="height: 2px;">Comedy</u></a></span>
-                <span>Age Rating: 13+</span>
+                <span>Author: <?php echo $row['author']?></span>
+                <span>Category: <a href="#"><u><?php echo $row['category']?></u></a></span>
+                <span>Genre: <?php echo $row['genre']?></span>
             </div>
-              
-            <p class="details inter-font">
-                 Tarou Sakamoto was considered the greatest hitman of all time. Feared by many, he stood at the top of the underground world until he met and fell in love with a woman. As a result, Sakamoto abandoned his life of crime and now works as a convenience store clerk.<br> Leaving his shady past behind proves more difficult than Sakamoto initially imagined. Many of his former rivals and partners do not believe that he truly left the business and show up in hopes of taking him out. Barred from killing, Sakamoto must find creative ways to subdue his enemies and prevent them from bringing harm to his family, his store, and the small town he resides in. 
-            </p>
+            
+            <p class="details inter-font"><?php echo $row['description']?> </p>
+
         </div>
         <div class="money-lost-wrapper">
             <div class="money-lost" style="grid-area: box-3;">
