@@ -1,5 +1,4 @@
 <?php
-// database.php
 try {
     $db = new PDO('mysql:host=localhost;dbname=ink_panels', 'root', 'root');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::PARAM_STR);

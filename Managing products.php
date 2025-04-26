@@ -1,7 +1,8 @@
 <?php
     session_start();
 
-  require_once 'database.php';
+    require_once 'database.php';
+
     if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 
@@ -12,14 +13,12 @@
             $stmt->execute();
             
         }else{
-
-
         $title=htmlspecialchars($_POST["title"]);
         $author=htmlspecialchars($_POST["author"]);
         $genre = isset($_POST['genre']) ? implode(',', $_POST['genre']) : '';
         $type=htmlspecialchars($_POST["type"]);
         $stock=htmlspecialchars($_POST["stock"]);
-        $price=htmlspecialchars($_POST["price"]);
+        $price=htmlspecialchars($_POST["price"]); 
         $dec=htmlspecialchars($_POST["dec"]);
         $date=htmlspecialchars($_POST["date"]);
 
@@ -72,6 +71,8 @@
         }
 
     }}
+
+
 
 
 
@@ -236,12 +237,12 @@
             <tr>
                 <th class="th-prod">NO.</th>
                 <th class="th-prod">Title</th>
+                <th class="th-prod">author</th>
+                <th class="th-prod">type</th>
                 <th class="th-prod">Genre</th>
                 <th class="th-prod">Stock</th>
                 <th class="th-prod">Unit Price</th>
                 <th class="th-prod">Release Date</th>
-                <th class="th-prod">author</th>
-                <th class="th-prod">type</th>
 
                 
                 <th class="th-prod">
@@ -269,23 +270,24 @@
                     </div>
                 </th>
             </tr>
-            <?php while($row=$stmt->fetch(PDO::FETCH_ASSOC)){ ?>
+            <?php 
+                $_cou=0;
+                while($row=$stmt->fetch(PDO::FETCH_ASSOC)){ $_cou++?>
 
             <tr class="tr-prod">
-                <td class="td-prod"><?php echo $row['MC_ID'];?></td>
+                <td class="td-prod"><?php echo $_cou?></td>
                 <td class="td-prod"><?php echo $row['title'];?></td>
+                <td class="td-prod"><?php echo $row['author'];?></td>
+                <td class="td-prod"><?php echo $row['type'];?></td>
                 <td class="td-prod"><?php echo $row['genre'];?></td>
                 <td class="td-prod"><?php echo $row['stock_quantity'];?></td>
                 <td class="td-prod"><?php echo $row['price'];?></td>
                 <td class="td-prod"><?php echo $row['release_date'];?></td>
-                <td class="td-prod"><?php echo $row['author'];?></td>
-                <td class="td-prod"><?php echo $row['type'];?></td>
-             
                 <td class="img-container">
 
                 <form method="post">
                     <input type="hidden" name="edit_id" value="<?= $row['MC_ID']; ?>">
-                    <button class="buttonmg open-up" ><img src="images\edit.png"  alt="edit"></button>
+                    <button class="buttonmg open-up" ><img src="images\edit.png"  alt="edit"  onclick='open'></button>
 
                     </form>
                 <form method="post" onsubmit="return confirmdeletion();">

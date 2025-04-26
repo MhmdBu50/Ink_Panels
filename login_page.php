@@ -1,4 +1,5 @@
 <?php
+    require_once "database.php";
 
     session_start();
  
@@ -13,11 +14,11 @@
         $email = htmlspecialchars($_POST["email"]);
         $password = $_POST["password"];   
         try{
-        $db=new PDO('mysql:host=localhost;dbname=ink_panels','root','root');
 
-                $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                 $check=$db->prepare("SELECT user_ID,Email,password_hash FROM user WHERE email=:email");
                     
+                    $check=$db->prepare("SELECT * FROM user Where email=:email");
+
+
                     $check->bindParam(":email",$email);
                     $check->execute();
                     if($check->rowCount()>0){
