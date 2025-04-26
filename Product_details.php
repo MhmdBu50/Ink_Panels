@@ -2,11 +2,81 @@
   session_start();
   require_once 'database.php'; // Include your database connection file
 
+  error_reporting(E_ALL);
+  ini_set('display_errors', 1);
+
+
+
   $product_id = $_GET['id'] ?? null;
 
   if (!is_numeric($product_id)) {
     die("Invalid product ID");
   }
+
+
+
+
+  if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_to_cart'])) {
+    echo "<pre>POST Data: ";
+    print_r($_POST);
+    echo "</pre>";
+    
+    if(!isset($_SESSION['user_ID'])) {
+        header('location: login_page.php?redirect=product_details.php?id='.$product_id);
+        exit();
+    }
+
+    $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+    echo "Quantity: $quantity<br>";
+    
+    try {
+        // Get product price
+        $stmt = $db->prepare("SELECT price FROM manga_comic WHERE MC_ID = ?");
+        $stmt->execute([$product_id]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        if(!$product) {
+            throw new Exception("Product not found");
+        }
+
+        $price = $product['price'];
+        $total_price = $price * $quantity;
+        echo "Price: $price, Total: $total_price<br>";
+
+        // Check if product already exists in cart
+        $stmt = $db->prepare("SELECT cart_id, quantity FROM shopping_cart WHERE user_id = ? AND MC_ID = ?");
+        $stmt->execute([$_SESSION['user_ID'], $product_id]);
+        $existing_item = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        echo "Existing item: ";
+        print_r($existing_item);
+        echo "<br>";
+
+        if($existing_item) {
+            // Update existing item
+            $new_quantity = $quantity + $existing_item['quantity'];
+            $new_total = $price * $new_quantity;
+            
+            $stmt = $db->prepare("UPDATE shopping_cart SET quantity = ?, total_price = ? WHERE cart_id = ?");
+            $result = $stmt->execute([$new_quantity, $new_total, $existing_item['cart_id']]);
+            echo "Update result: " . ($result ? "Success" : "Failed") . "<br>";
+        } else {
+            // Insert new item
+            $stmt = $db->prepare("INSERT INTO shopping_cart (user_id, MC_ID, quantity, total_price, created_at) 
+                                 VALUES (?, ?, ?, ?, NOW())");
+            $result = $stmt->execute([$_SESSION['user_ID'], $product_id, $quantity, $total_price]);
+            echo "Insert result: " . ($result ? "Success" : "Failed") . "<br>";
+            echo "Last insert ID: " . $db->lastInsertId() . "<br>";
+        }
+        
+        $_SESSION['cart_message'] = "Item added to cart successfully!";
+        header("Location: cart_page.php");
+        exit();
+
+    } catch(PDOException $e) {
+        echo "<div style='color:red;padding:10px;border:1px solid red;'>Database Error: " . $e->getMessage() . "</div>";
+    }
+}
   
   $conn=$db->prepare("SELECT * FROM manga_comic WHERE MC_ID=?"); 
   $conn->execute([$product_id]);
@@ -71,6 +141,8 @@
            <?php endif; ?>
             </div>
     </header>
+
+
     <div class="details-grid-container">
         <div class=" manga-img" style="grid-area: box-1;">
             <img src="data: $mimetype; base64, <?php echo base64_encode($row['cover_image']); ?>">
@@ -105,12 +177,11 @@
                             </div>
                           </div>
                     </div>
-                
                     <div class="inter-font vol-qua dropdown"  style="grid-area: box3-2;">
                         <span>Quantity</span>
                         <div class="dropdown-container" id="dropdown-quantity">
                             <button class="dropbtn dromdown-font" id="dropbtn-quantity">
-                              <span id="selected-text-quantity">1</span>
+                              <span id="selected-text-quantity" >1</span>
                               <svg class="arrow" viewBox="0 0 28 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14.2614 15.6035L8.54883 10.6743H19.974L14.2614 15.6035Z" fill="#1D1B20"/>
                               </svg>
@@ -136,20 +207,39 @@
                         </svg>
                          55 </p>
                 </div>
-                    <div class="add-to-cart" style="grid-area: box3-6;" >
-                    <a href="cart_page.php?id=<?php echo $row['MC_ID'] ?>" style="text-decoration:none"><button id="add-to-cart">
-                        <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clip-path="url(#clip0_46_1134)">
-                            <path d="M2.65723 2.58411H11.2299L16.9736 31.2811C17.1696 32.2678 17.7063 33.1542 18.49 33.785C19.2736 34.4158 20.2541 34.7509 21.2599 34.7316H42.0915C43.0973 34.7509 44.0778 34.4158 44.8614 33.785C45.6451 33.1542 46.1819 32.2678 46.3778 31.2811L49.8069 13.2999H13.3731M21.9457 45.4474C21.9457 46.6311 20.9862 47.5906 19.8026 47.5906C18.6189 47.5906 17.6594 46.6311 17.6594 45.4474C17.6594 44.2638 18.6189 43.3043 19.8026 43.3043C20.9862 43.3043 21.9457 44.2638 21.9457 45.4474ZM45.5206 45.4474C45.5206 46.6311 44.561 47.5906 43.3774 47.5906C42.1938 47.5906 41.2342 46.6311 41.2342 45.4474C41.2342 44.2638 42.1938 43.3043 43.3774 43.3043C44.561 43.3043 45.5206 44.2638 45.5206 45.4474Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                            </g>
-                            <defs>
-                            <clipPath id="clip0_46_1134">
-                            <rect width="51.436" height="51.436" fill="white" transform="translate(0.51416 0.440948)"/>
-                            </clipPath>
-                            </defs>
-                        </svg>  Add to cart </button></a>
+                <div class="add-to-cart" style="grid-area: box3-6;">
+    <form method="post">
+        <input type="hidden" name="add_to_cart" value="1">
+        <input type="hidden" name="product_id" value="<?php echo $row['MC_ID'] ?>">
+        <input type="hidden" id="selected-quantity" name="quantity" value="1">
+        <button type="submit" id="add-to-cart">
+            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Your cart icon SVG -->
+            </svg> 
+            Add to cart
+        </button>
+    </form>
+</div>
 
-                    </div>
+<script>
+// Update the hidden quantity field when dropdown changes
+document.querySelector('#dropdown-quantity').addEventListener('click', function(e) {
+    if(e.target.tagName === 'A') {
+        const quantity = e.target.textContent;
+        document.getElementById('selected-quantity').value = quantity;
+        console.log("Quantity set to:", quantity);
+    }
+});
+
+// Debug form submission
+document.querySelector('form').addEventListener('submit', function(e) {
+    console.log("Form submitted with data:", {
+        add_to_cart: this.elements['add_to_cart'].value,
+        product_id: this.elements['product_id'].value,
+        quantity: this.elements['quantity'].value
+    });
+});
+</script>
                 </div>
             </div>
         </div>
@@ -166,6 +256,7 @@
                     
             </div>
         </div>
+    </div>
     </div>
 </body>
 <script>
