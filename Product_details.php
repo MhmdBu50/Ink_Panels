@@ -136,8 +136,8 @@
                         </svg>
                          55 </p>
                 </div>
-                    <div class="add-to-cart" style="grid-area: box3-6;">
-                        <button id="add-to-cart">
+                    <div class="add-to-cart" style="grid-area: box3-6;" >
+                    <a href="cart_page.php?id=<?php echo $row['MC_ID'] ?>" style="text-decoration:none"><button id="add-to-cart">
                         <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_46_1134)">
                             <path d="M2.65723 2.58411H11.2299L16.9736 31.2811C17.1696 32.2678 17.7063 33.1542 18.49 33.785C19.2736 34.4158 20.2541 34.7509 21.2599 34.7316H42.0915C43.0973 34.7509 44.0778 34.4158 44.8614 33.785C45.6451 33.1542 46.1819 32.2678 46.3778 31.2811L49.8069 13.2999H13.3731M21.9457 45.4474C21.9457 46.6311 20.9862 47.5906 19.8026 47.5906C18.6189 47.5906 17.6594 46.6311 17.6594 45.4474C17.6594 44.2638 18.6189 43.3043 19.8026 43.3043C20.9862 43.3043 21.9457 44.2638 21.9457 45.4474ZM45.5206 45.4474C45.5206 46.6311 44.561 47.5906 43.3774 47.5906C42.1938 47.5906 41.2342 46.6311 41.2342 45.4474C41.2342 44.2638 42.1938 43.3043 43.3774 43.3043C44.561 43.3043 45.5206 44.2638 45.5206 45.4474Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -147,7 +147,8 @@
                             <rect width="51.436" height="51.436" fill="white" transform="translate(0.51416 0.440948)"/>
                             </clipPath>
                             </defs>
-                        </svg> add to cart</button>
+                        </svg>  Add to cart </button></a>
+
                     </div>
                 </div>
             </div>

@@ -1,3 +1,17 @@
+<?php
+session_start();
+require_once "database.php";
+$product_id=$_GET["id"];
+$stmt=$db->prepare("SELECT * FROM shopping_cart WHERE MC_ID=?");
+$stmt->execute([$product_id]);
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>

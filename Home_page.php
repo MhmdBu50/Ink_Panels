@@ -53,7 +53,7 @@
                 <a href="sign_up.php"><button class="signlog" id="signup">Sign up</button></a>
                 <a href="login_page.php"><button class="signlog" id="login">Log in</button></a>
            <?php endif; ?>
-            </div>
+            </div></header>
 
     <div id="yellow_background">
         <div id="burger"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div>
