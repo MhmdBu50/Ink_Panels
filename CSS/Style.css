@@ -66,6 +66,26 @@
                 stroke-width:1.5px; /* Change to a lighter color */
                 transition: stroke 0.3s ease-in-out; /* Smooth transition */
             }
+        .logo {
+            transform: scale(1.02);
+            transition: transform .08s ease-in-out;
+        }
+        .logo:hover {
+            transform: scale(1.04);
+        }
+        .logo:hover svg path {
+            transition: stroke 0.3s ease-in-out; /* Smooth transition */
+
+        }
+        .logo:active  {
+            transition: transform ease;
+            transform: scale(1.06);
+        }
+
+        .logo:active svg path {
+            stroke-width:5.5px; /* Change to a lighter color */
+            transition: stroke 0.3s ease-in-out; /* Smooth transition */
+        }
         
         .search{
             width: clamp(150px,620px,83.52%);;
