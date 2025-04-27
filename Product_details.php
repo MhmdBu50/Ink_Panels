@@ -18,7 +18,7 @@
 
   if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_to_cart'])) {
     echo "<pre>POST Data: ";
-    print_r($_POST);
+    // print_r($_POST);
     echo "</pre>";
     
     if(!isset($_SESSION['user_ID'])) {
@@ -27,7 +27,7 @@
     }
 
     $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
-    echo "Quantity: $quantity<br>";
+    // echo "Quantity: $quantity<br>";
     
     try {
         // Get product price
@@ -43,7 +43,6 @@
         $total_price = $price * $quantity;
         echo "Price: $price, Total: $total_price<br>";
 
-        // Check if product already exists in cart
         $stmt = $db->prepare("SELECT cart_id, quantity FROM shopping_cart WHERE user_id = ? AND MC_ID = ?");
         $stmt->execute([$_SESSION['user_ID'], $product_id]);
         $existing_item = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -53,7 +52,6 @@
         echo "<br>";
 
         if($existing_item) {
-            // Update existing item
             $new_quantity = $quantity + $existing_item['quantity'];
             $new_total = $price * $new_quantity;
             
@@ -61,7 +59,6 @@
             $result = $stmt->execute([$new_quantity, $new_total, $existing_item['cart_id']]);
             echo "Update result: " . ($result ? "Success" : "Failed") . "<br>";
         } else {
-            // Insert new item
             $stmt = $db->prepare("INSERT INTO shopping_cart (user_id, MC_ID, quantity, total_price, created_at) 
                                  VALUES (?, ?, ?, ?, NOW())");
             $result = $stmt->execute([$_SESSION['user_ID'], $product_id, $quantity, $total_price]);
@@ -69,7 +66,7 @@
             echo "Last insert ID: " . $db->lastInsertId() . "<br>";
         }
         
-        $_SESSION['cart_message'] = "Item added to cart successfully!";
+        
         header("Location: cart_page.php");
         exit();
 
@@ -208,7 +205,7 @@
                          55 </p>
                 </div>
                 <div class="add-to-cart" style="grid-area: box3-6;">
-    <form method="post">
+    <form method="post" action="product_details.php?id=<?php echo $product_id; ?>" >
         <input type="hidden" name="add_to_cart" value="1">
         <input type="hidden" name="product_id" value="<?php echo $row['MC_ID'] ?>">
         <input type="hidden" id="selected-quantity" name="quantity" value="1">
