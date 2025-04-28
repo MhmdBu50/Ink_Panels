@@ -63,8 +63,7 @@ textarea {
 }
 .info-section svg {
     width: 250px;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 .icons {
     display: flex;
     flex-direction: column;
@@ -74,15 +73,16 @@ textarea {
 textarea {
     min-height: 120px;
 }
-.form-header{ /* Header for contact us page */
+.form-header{
     display: flex;
     flex-direction: row;
 }
-.logo-contact{ /* Logo for contact us page */
+.logo-contact{
     padding: 20px 0 0 0;
 }
-.logo-svg{ /* Logo for contact us page */
+.logo-svg{
     width: 56px;
     height: 56px;
     margin-right: 12px;
 }
+/* aaaaaaaaaaaaaa*/
