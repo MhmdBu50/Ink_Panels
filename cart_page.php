@@ -1,9 +1,11 @@
 <?php
 session_start();
-echo '<pre>Session Contents: ';
+// echo '<pre>Session Contents: ';
+// print_r($_SESSION);
+// echo '</pre>';
+echo "<pre>Session Data: ";
 print_r($_SESSION);
-echo '</pre>';
-
+echo "</pre>";
 
 
 require_once "database.php";
@@ -16,10 +18,13 @@ require_once "database.php";
 
 
 
-if(!isset($_SESSION["user_ID"])){
+if(!isset($_SESSION["user_ID"]) && !isset($_SESSION['admin_ID'])){
     header("location:login_page.php?redirect=cart_page.php");
     exit();
 }
+
+
+
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
 // $user_cart=$db->prepare("SELECT cart_id, quantity from shopping_cart where user_id=? AND MC_ID=?");
 
