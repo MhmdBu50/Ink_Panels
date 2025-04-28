@@ -17,10 +17,31 @@
 
                     
                     $check=$db->prepare("SELECT * FROM user Where email=:email");
-
-
                     $check->bindParam(":email",$email);
                     $check->execute();
+
+
+                        $ifadmin=$db->prepare("SELECT * from admins where email=:email");
+                        $ifadmin->bindParam(":email",$email);
+                        $ifadmin->execute();
+
+
+             
+                    if($ifadmin->rowcount()>0){
+                        $admin=$ifadmin->fetch(PDO::FETCH_ASSOC);
+                        if($password==$admin['password_hash']){
+                            $_SESSION['admin_ID']=$admin['admin_ID'];
+                            $_SESSION['login']=true;
+                            session_regenerate_id(true);
+
+                            header("Location:homePageAdminstrator.php");
+                            exit();
+                        }
+                    }
+
+
+
+
                     if($check->rowCount()>0){
 
 
@@ -31,7 +52,11 @@
                             $_SESSION['email']=$user['Email'];
                             $_SESSION['logged_in']=true;
                         session_regenerate_id(true);
+
+          
+
                         header("Location: Home_page.php");
+
                         exit();
                         }   
                         else{
