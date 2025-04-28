@@ -5,6 +5,7 @@ echo '<pre>Session Contents: ';
 print_r($_SESSION);
 echo '</pre>';
 
+
 ?>
 <!DOCTYPE html>
 <html>
