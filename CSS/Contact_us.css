@@ -74,14 +74,14 @@ textarea {
 textarea {
     min-height: 120px;
 }
-.form-header{
+.form-header{ /* Header for contact us page */
     display: flex;
     flex-direction: row;
 }
-.logo-contact{
+.logo-contact{ /* Logo for contact us page */
     padding: 20px 0 0 0;
 }
-.logo-svg{
+.logo-svg{ /* Logo for contact us page */
     width: 56px;
     height: 56px;
     margin-right: 12px;
