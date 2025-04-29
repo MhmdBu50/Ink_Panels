@@ -1,0 +1,7 @@
+# Force all PHP files to be treated as PHP (not Hack)
+*.php linguist-language=PHP
+
+# Optional: mark minified/generated/vendor code as non-detectable if added later
+CSS/* linguist-detectable=true
+images/* linguist-detectable=false
+Database/* linguist-detectable=true
