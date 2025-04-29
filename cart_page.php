@@ -1,18 +1,14 @@
 <?php
 session_start();
-// echo '<pre>Session Contents: ';
-// print_r($_SESSION);
-// echo '</pre>';
-echo "<pre>Session Data: ";
+echo '<pre>Session Contents: ';
 print_r($_SESSION);
-echo "</pre>";
+echo '</pre>';
 
 
 require_once "database.php";
 // $product_id=$_GET["id"];
 // $stmt=$db->prepare("SELECT * FROM shopping_cart WHERE MC_ID=?");
 // $stmt->execute([$product_id]);
-
 
 
 
