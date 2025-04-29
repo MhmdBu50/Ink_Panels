@@ -3,9 +3,9 @@ session_start();
 // echo '<pre>Session Contents: ';
 // print_r($_SESSION);
 // echo '</pre>';
-echo "<pre>Session Data: ";
-print_r($_SESSION);
-echo "</pre>";
+// echo "<pre>Session Data: ";
+// print_r($_SESSION);
+// echo "</pre>";
 
 
 require_once "database.php";

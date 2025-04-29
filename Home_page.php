@@ -1,9 +1,9 @@
 <?php
 
     session_start();
-echo '<pre>Session Contents: ';
-print_r($_SESSION);
-echo '</pre>';
+// echo '<pre>Session Contents: ';
+// print_r($_SESSION);
+// echo '</pre>';
 
 
 ?>
@@ -58,7 +58,7 @@ echo '</pre>';
 
     $query="SELECT MC_ID , title ,cover_image FROM manga_comic ";
 
-    if(!$conn=mysqli_connect("localhost","root","0509219409"))
+    if(!$conn=mysqli_connect("localhost","root","root"))
         die("cannot connect to data base");
     if(!($database=mysqli_select_db($conn,"ink_panels")))
         die("cannot connect to db");
