@@ -44,7 +44,7 @@
 
      <div class="mainb">  
      <div class="title">Your Information</div>
-     <form>
+     <form class="formc">
      <div class="infobox"> First name: <input type="text" id="FName"></div>
      
      <div class="infobox"> Last name: <input type="text" id="LName"></div>
