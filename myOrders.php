@@ -1,3 +1,25 @@
+<?php
+session_start();
+require_once "database.php";
+
+
+
+$stmt = $db->prepare("
+    SELECT 
+           mc.title, mc.cover_image ,mc.description
+    FROM orders o
+    JOIN order_items oi ON o.order_ID = oi.order_ID
+    JOIN manga_comic mc ON oi.MC_ID = mc.MC_ID
+    WHERE o.user_ID = ?
+    ORDER BY o.order_ID DESC
+");
+$stmt->execute([$_SESSION['user_ID']]);
+$ordersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,14 +42,12 @@
 <body>
 
   <?php require"header.php"?>
-
+<?php foreach($ordersData as $order) :?>
     <div class="container">
-        <div><button class="imgButton"><img src="/images/aka chan.png" class="img"><div id="title"><p>aka chan boku</p></div><div id="detiles">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere accusamus provident dolore facilis pariatur ex veniam autem adipisci, obcaecati optio aperiam, unde suscipit, commodi doloremque sapiente totam qui tempore tenetur? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Enim atque repudiandae porro, temporibus assumenda iste voluptates fugiat praesentium tenetur similique expedita illum, nemo itaque aut? Minus quas assumenda nulla hic! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore expedita tenetur distinctio omnis, modi officia consequatur harum nesciunt, magni itaque pariatur aperiam magnam error nisi, inventore necessitatibus laborum. Unde, placeat?</div></button></div>
-        <div><button class="imgButton"><img src="/images/dragon ball.png" class="img"><div id="title"><p>aka chan boku</p></div><div id="detiles">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore expedita tenetur distinctio omnis, modi officia consequatur harum nesciunt, magni itaque pariatur aperiam magnam error nisi, inventore necessitatibus laborum. Unde, placeat?</div></button></div>
-        <div><button class="imgButton"><img src="/images/Sakamoto.jpg" class="img"><div id="title"><p>aka chan boku</p></div><div id="detiles">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore expedita tenetur distinctio omnis, modi officia consequatur harum nesciunt, magni itaque pariatur aperiam magnam error nisi, inventore necessitatibus laborum. Unde, placeat?</div></button></div>
-        <div><button class="imgButton"><img src="/images/hajme no ippo.png" class="img"><div id="title"><p>aka chan boku</p></div><div id="detiles">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Labore expedita tenetur distinctio omnis, modi officia consequatur harum nesciunt, magni itaque pariatur aperiam magnam error nisi, inventore necessitatibus laborum. Unde, placeat?</div></button></div>
-
+        <div><button class="imgButton"><img src="data: $mimetype; base64,<?php echo base64_encode($order['cover_image']); ?>" class="img"><div id="title"><p><?php echo $order['title']?></p></div><div id="detiles"><p><?php echo $order["description"]?></p></div></button></div>
+    
     </div>
+    <?php endforeach; ?>
 <!--
 <script>
 document.addEventListener('DOMContentLoaded', function() {

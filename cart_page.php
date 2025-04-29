@@ -197,7 +197,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             </svg></span>
             <?= number_format($cart_summary['total'], 2) ?>
         </div>
-       <button class="buybtn">Buy</button>
+       <a href="checkout_page.php"><button class="buybtn">Buy</button></a>
         <hr>
         <p class="protection">Buyer protection</p>
         <p>Get a full refund if the item is not as described or not delivered.</p>
