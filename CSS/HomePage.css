@@ -212,3 +212,34 @@ margin-top: 0px;
     margin-left: 0.5%;
     color: #FFFFFF;
 }
+#site-footer {
+  padding: 20px;
+  margin: 40;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  gap: 50px; 
+  align-items: flex-start;
+  color: #FFFFFF;
+
+}
+
+.footer-content a {
+  text-decoration: none;
+  color: #FFFFFF;
+  font-size: 35px; /* Adjust as needed */
+  font-weight: bold;
+}
+
+summary {
+  list-style: none;
+  font-size: 35px; /* Adjust as needed */
+  font-weight: bold;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+

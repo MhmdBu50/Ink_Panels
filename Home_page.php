@@ -58,7 +58,7 @@ echo '</pre>';
 
     $query="SELECT MC_ID , title ,cover_image FROM manga_comic ";
 
-    if(!$conn=mysqli_connect("localhost","root","0509219409"))
+    if(!$conn=mysqli_connect("localhost","root","pass123","ink_panels", 3307))
         die("cannot connect to data base");
     if(!($database=mysqli_select_db($conn,"ink_panels")))
         die("cannot connect to db");
@@ -115,14 +115,23 @@ while ($row = mysqli_fetch_assoc($result)) {
 ?>
         
     </div>
-        <footer>
-            <div>
-                <details>
-                <summary><label><a>Contact Us</a></label></summary><ul><li><a href="tel:+966013646">+999013646</a></li><li><a href="mailto:AAAAA@email.com">AAAAA@email.com</a></li></ul></details>
-                <label><a>About Us</a></label>
-            </div>
+    <footer id="site-footer">
+  <div class="footer-content">
+    <details>
+      <summary>Contact Us</summary>
+      <ul>
+        <li><a href="tel:+966013646">+966013646</a></li>
+        <li><a href="mailto:2220002615@IAU.EDU.SA">2220002615@IAU.EDU.SA</a></li>
+      </ul>
+    </details>
 
-        </footer>
+    <div class="about-link">
+      <a href="#">About Us</a>
+    </div>
+  </div>
+</footer>
+
+
     </div>
 
 <script>
