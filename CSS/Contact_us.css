@@ -63,8 +63,7 @@ textarea {
 }
 .info-section svg {
     width: 250px;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 .icons {
     display: flex;
     flex-direction: column;
@@ -74,4 +73,15 @@ textarea {
 textarea {
     min-height: 120px;
 }
-
+.form-header{
+    display: flex;
+    flex-direction: row;
+}
+.logo-contact{
+    padding: 20px 0 0 0;
+}
+.logo-svg{
+    width: 56px;
+    height: 56px;
+    margin-right: 12px;
+}
