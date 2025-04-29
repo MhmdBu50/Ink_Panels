@@ -115,11 +115,10 @@ while ($row = mysqli_fetch_assoc($result)) {
 ?>
         
     </div>
-        <footer>
-            <div>
-                <details>
-                <summary><label><a>Contact Us</a></label></summary><ul><li><a href="tel:+966013646">+999013646</a></li><li><a href="mailto:AAAAA@email.com">AAAAA@email.com</a></li></ul></details>
-                <label><a>About Us</a></label>
+        <footer id="site-footer">
+            <div class="footer-content">
+            <h2><a href="ContactUs_page.php">Contact Us</a></h2>
+            <h2><a href="#">About Us</a></h2>
             </div>
 
         </footer>

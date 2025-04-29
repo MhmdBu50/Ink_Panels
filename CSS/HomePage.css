@@ -214,7 +214,8 @@ margin-top: 0px;
 }
 #site-footer {
   padding: 20px;
-  margin: 40;
+  background-color: #161616;
+  margin-top: 20px;
 }
 
 .footer-content {
@@ -223,7 +224,7 @@ margin-top: 0px;
   gap: 50px; 
   align-items: flex-start;
   color: #FFFFFF;
-
+  
 }
 
 .footer-content a {
@@ -232,14 +233,9 @@ margin-top: 0px;
   font-size: 35px; /* Adjust as needed */
   font-weight: bold;
 }
-
-summary {
-  list-style: none;
-  font-size: 35px; /* Adjust as needed */
-  font-weight: bold;
+.footer-content a:hover {
+    color: rgb(56, 116, 162);
 }
 
-summary::-webkit-details-marker {
-  display: none;
-}
+
 
