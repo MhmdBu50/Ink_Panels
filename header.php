@@ -29,7 +29,7 @@
         </button>           
     </form>
     <div class="signlog-container">
-        <?php if(isset($_SESSION['user_ID'])):?>
+        <?php if(isset($_SESSION['user_ID']) || isset($_SESSION['admin_ID'])):?>
             <a href="log_out.php"><button class="signlog" id="login">Log Out</button></a>
         <?php else:  ?>
             <a href="sign_up.php"><button class="signlog" id="signup">Sign up</button></a>

@@ -29,7 +29,7 @@
         </div>
         
         <div id="shopcart">
-            <a href="cart_page.html"><button class="shopcart">
+            <a href="cart_page.php"><button class="shopcart">
                 <svg width="35" height="35" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M46 2H38L32.64 28.78C32.4571 29.7008 31.9562 30.5279 31.2249 31.1166C30.4936 31.7053 29.5786 32.018 28.64 32H9.2C8.2614 32.018 7.34636 31.7053 6.61509 31.1166C5.88381 30.5279 5.38289 29.7008 5.2 28.78L2 12H36M28 42C28 43.1046 28.8954 44 30 44C31.1046 44 32 43.1046 32 42C32 40.8954 31.1046 40 30 40C28.8954 40 28 40.8954 28 42ZM6 42C6 43.1046 6.89543 44 8 44C9.10457 44 10 43.1046 10 42C10 40.8954 9.10457 40 8 40C6.89543 40 6 40.8954 6 42Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>

@@ -17,7 +17,6 @@ require_once "database.php";
 
 
 
-
 if(!isset($_SESSION["user_ID"]) && !isset($_SESSION['admin_ID'])){
     header("location:login_page.php?redirect=cart_page.php");
     exit();

@@ -2,6 +2,7 @@
     session_start();
 
     require_once 'database.php';
+    
     if(!isset($_SESSION['admin_ID'])){
         header("location:login_page.php");
         exit();
