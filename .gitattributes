@@ -4,4 +4,4 @@
 # Optional: mark minified/generated/vendor code as non-detectable if added later
 CSS/* linguist-detectable=true
 images/* linguist-detectable=false
-Database/* linguist-detectable=true
+Database/* linguist-detectable=false
