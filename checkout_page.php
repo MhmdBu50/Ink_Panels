@@ -69,7 +69,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       
       $db->commit();
       
-      header("Location:myOrders?order_id=".$order_ID);
+      header("Location: cart_page.php");
       exit();
       
   } catch (Exception $e) {

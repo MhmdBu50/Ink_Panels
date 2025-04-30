@@ -7,9 +7,9 @@
         header("location:login_page.php");
         exit();
     }
-    echo '<pre>Session Contents: ';
-print_r($_SESSION);
-echo '</pre>';
+//     echo '<pre>Session Contents: ';
+// print_r($_SESSION);
+// echo '</pre>';
 
 
         $product=$db->prepare("SELECT * FROM manga_comic");

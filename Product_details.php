@@ -3,9 +3,9 @@
   require_once 'database.php'; // Include your database connection file
 
 
-  echo '<pre>Session Contents: ';
-  print_r($_SESSION);
-  echo '</pre>';
+  // echo '<pre>Session Contents: ';
+  // print_r($_SESSION);
+  // echo '</pre>';
 
 
   error_reporting(E_ALL);

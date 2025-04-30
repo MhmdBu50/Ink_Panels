@@ -207,7 +207,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <?php else: ?>
             <p style="color: white">Your cart is empty</p>
-            <a href="index.php" class="continue-shopping">Continue Shopping</a>
+            <a href="home_page.php" class="continue-shopping">Continue Shopping</a>
         <?php endif; ?>
     </div>
 
