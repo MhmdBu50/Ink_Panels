@@ -147,9 +147,10 @@
         }
 
         #site-footer {
-            padding: 20px;
+            padding: 20px 0;
             background-color: #161616;
             margin-top: 20px;
+            width: 100vw;
           }
           
           .footer-content {
