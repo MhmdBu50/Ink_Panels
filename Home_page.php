@@ -1,12 +1,34 @@
 <?php
 
     session_start();
-// echo '<pre>Session Contents: ';
+    require_once 'database.php';
+    
+//     echo '<pre>Session Contents: ';
 // print_r($_SESSION);
 // echo '</pre>';
 
 
+if(!$conn=mysqli_connect("localhost","root","root"))
+die("cannot connect to data base");
+if(!($database=mysqli_select_db($conn,"ink_panels")))
+die("cannot connect to db");
+
+$query="SELECT MC_ID , title ,cover_image ,type FROM manga_comic ";
+
+
+$result=mysqli_query($conn,$query);
+
+
+
+
+    if(isset($_GET['cat'])){
+        $cat=mysqli_real_escape_string($conn,$_GET['cat']);
+        $query .="WHERE type = '$cat'";
+
+
+    }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,14 +40,22 @@
 </head>
 <body>
 
-    <?php require"header.php"?>
+<?php require"header.php"?>
 
-    <div id="yellow_background">
-        <div id="burger"><span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span></div>
+<div id="yellow_background">
 
-        <div id="comic_manga" class="comic_manga-font">
-            <button class="magnga_comic">Comic</button>
-            <button class="magnga_comic">Manga</button>
+<?php if(isset($_SESSION['user_ID'])): ?>
+<a href="myprofile.php" class="account-link">
+    My Account: <?php echo htmlspecialchars($_SESSION['email']); ?>
+    <button class="account-button">
+        <i class="fas fa-user"></i>
+    </button>
+</a>
+<?php endif; ?>
+
+<div id="comic_manga" class="comic_manga-font">
+            <button class="magnga_comic" data-filter="comic">Comic</button>
+            <button class="magnga_comic" data-filter="manga">Manga</button>
         </div>
         
         <div id="shopcart">
@@ -36,35 +66,9 @@
             </button></a>
         </div>
     </div>       
-
-<div id="sideNav" class="sideNav">
-
-<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-
-<div id="nav-contant">
-<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
-<div class="lastpurchases"><img src="/images/dragon ball.png" class="navimg"></div>
-<div class="lastpurchases"><img src="/images/fist of the north star.png" class="navimg"></div>
-<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
-<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
-<div class="lastpurchases"><img src="/images/aka chan.png" class="navimg"></div>
-
-
 </div>
 
-</div>
 
-<?php
-
-    $query="SELECT MC_ID , title ,cover_image FROM manga_comic ";
-
-    if(!$conn=mysqli_connect("localhost","root","root"))
-        die("cannot connect to data base");
-    if(!($database=mysqli_select_db($conn,"ink_panels")))
-        die("cannot connect to db");
-    $result=mysqli_query($conn,$query);
-
-?>
 
 
 <div id="nav">
@@ -88,21 +92,11 @@
         <?php
 
 while ($row = mysqli_fetch_assoc($result)) {
-
-    $mimetype=[
-        'jpg'=>"image/jpg",
-        'jpeg'=>"image/jepg",
-        'png'=>"image/png",
-        'gif'=>"image/gif",
-        'webp'=>"image/webp"
-    ];
-
     echo '
-    <div>
+    <div data-category="'.htmlspecialchars($row['type']).'">
         <a href="Product_details.php?id='.$row['MC_ID'].'">
             <button class="img_button">
-                <!-- Display binary image directly -->
-                <img src="data: $mimetype ;base64,'.base64_encode($row['cover_image']).'" 
+                <img src="data:image/jpeg;base64,'.base64_encode($row['cover_image']).'" 
                      class="img" 
                      alt="'.htmlspecialchars($row['title']).'">
                 <div id="title">
@@ -118,15 +112,33 @@ while ($row = mysqli_fetch_assoc($result)) {
     <?php require"footer.php"?>
 
     </div>
-<script>
-    function openNav(){
-        document.getElementById("sideNav").style.width="250px";
-        document.getElementById("nav").style.marginLeft="250px";
-    }
-    function closeNav(){
-        document.getElementById("sideNav").style.width="0px";
-        document.getElementById("nav").style.marginLeft="0px";
-    }
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.magnga_comic');
+    const items = document.querySelectorAll('.container > div[data-category]');
+    
+    // Show all items initially
+    items.forEach(item => item.style.display = 'block');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button styling (optional)
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter items
+            items.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+});
 </script>
 </body>
 </html>
