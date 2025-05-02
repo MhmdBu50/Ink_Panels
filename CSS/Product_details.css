@@ -328,8 +328,7 @@
         }
 
         .More-container{
-            display: grid;
-            grid-template-columns:10vw 10vw 10vw 10vw 10vw;
+            display: flex;
             gap: 1.7vw;
             align-items: center;
             margin-bottom: 1.5%;
