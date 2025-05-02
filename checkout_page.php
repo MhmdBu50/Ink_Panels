@@ -2,6 +2,26 @@
 session_start();
 require_once "database.php";
 
+if (!isset($_GET['mode']) && isset($_SESSION['checkout_now'])) {
+  unset($_SESSION['checkout_now']);
+}
+
+
+//the following if statement should handel the flow of the buy now button from the product details page
+if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buy_now'])){
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity']; //note to self: These values were sent from the form of buy_now in the product details page... 
+                                    //using the hidden inputs in the form
+    $_SESSION['checkout_now']=[
+        'product_id' => $product_id,
+        'quantity' => $quantity
+    ];
+
+
+    header("Location: checkout_page.php?mode=buy_now");
+    exit();
+}
+
 if(!isset($_SESSION["user_ID"])) {
     header("Location: login_page.php?redirect=checkout_page.php");
     exit();
@@ -12,18 +32,41 @@ $shipping = 22.00;
 $grandTotal = 0;
 $cartItems = [];
 
-$stmt = $db->prepare("
-    SELECT sc.*, mc.title, mc.cover_image 
-    FROM shopping_cart sc
-    JOIN manga_comic mc ON sc.MC_ID = mc.MC_ID
-    WHERE sc.user_id = ?
-");
-$stmt->execute([$_SESSION['user_ID']]);
-$cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if(isset($_SESSION['checkout_now'])){
+  $product_id = $_SESSION['checkout_now']['product_id'];
+  $quantity = $_SESSION['checkout_now']['quantity'];
 
-foreach ($cartItems as $item) {
-    $total += $item['total_price'];
+  $stmt = $db->prepare("SELECT MC_ID, title, price, cover_image 
+                        FROM manga_comic WHERE MC_ID = ?");
+
+  $stmt->execute([$product_id]);
+  $product = $stmt->fetch(PDO::FETCH_ASSOC);
+  if($product) {
+      $total = $product['price'] * $quantity;
+      $cartItems[] = [
+          'MC_ID' => $product['MC_ID'],
+          'title' => $product['title'],
+          'quantity' => $quantity,
+          'total_price' => $total,
+          'cover_image' => $product['cover_image']
+      ];
+  }
+}else{
+  $stmt = $db->prepare("
+      SELECT sc.*, mc.title, mc.cover_image 
+      FROM shopping_cart sc
+      JOIN manga_comic mc ON sc.MC_ID = mc.MC_ID
+      WHERE sc.user_id = ?
+  ");
+  $stmt->execute([$_SESSION['user_ID']]);
+  $cartItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  foreach ($cartItems as $item) {
+      $total += $item['total_price'];
+  }
 }
+
+
 $grandTotal = $total + $shipping;
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {

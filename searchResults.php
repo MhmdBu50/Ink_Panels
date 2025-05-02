@@ -84,5 +84,7 @@ if (isset($_GET['show']) && $_GET['show'] === 'image' && isset($_GET['id'])) {
     
     $conn->close();
     ?>
+        <?php require"footer.php"?>
+
 </body>
 </html>

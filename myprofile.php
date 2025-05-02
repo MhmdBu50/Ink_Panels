@@ -112,6 +112,7 @@
     
     </div>
 
+    <?php require"footer.php"?>
 
 
 <script>

@@ -233,6 +233,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
+    <?php require"footer.php"?>
 
     <script>
 function adjustQuantity(button, change) {

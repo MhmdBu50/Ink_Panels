@@ -264,10 +264,11 @@
                 </td>
             </tr>
             <?php } ?>
-           
+
             
         </table>
     </div>
+    <?php require"footer.php"?>
 
     <script>
         const openBtns = document.querySelectorAll('.open-up');

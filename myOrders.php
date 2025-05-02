@@ -48,6 +48,8 @@ $ordersData = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     </div>
     <?php endforeach; ?>
+    <?php require"footer.php"?>
+
 <!--
 <script>
 document.addEventListener('DOMContentLoaded', function() {
