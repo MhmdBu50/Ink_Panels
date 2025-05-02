@@ -58,7 +58,7 @@
 
     $query="SELECT MC_ID , title ,cover_image FROM manga_comic ";
 
-    if(!$conn=mysqli_connect("localhost","root","pass123","ink_panels", 3307))
+    if(!$conn=mysqli_connect("localhost","root","root"))
         die("cannot connect to data base");
     if(!($database=mysqli_select_db($conn,"ink_panels")))
         die("cannot connect to db");
