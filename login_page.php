@@ -31,6 +31,8 @@
                         $admin=$ifadmin->fetch(PDO::FETCH_ASSOC);
                         if($password==$admin['password_hash']){
                             $_SESSION['admin_ID']=$admin['admin_ID'];
+                            $_SESSION['email']=$admin['email'];
+
                             $_SESSION['login']=true;
                             session_regenerate_id(true);
 

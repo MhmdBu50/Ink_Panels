@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $new_quantity = (int)($_POST['quantity'] ?? 0);
             
             if($new_quantity > 0 && $cart_id) {
-                $stmt = $db->prepare("SELECT mc.price 
+                $stmt = $db->prepare("SELECT mc.price ,mc.stock_quantity
                                      FROM shopping_cart sc 
                                      JOIN manga_comic mc ON sc.MC_ID = mc.MC_ID 
                                      WHERE sc.cart_id = ? AND sc.user_id = ?");
@@ -41,14 +41,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $product = $stmt->fetch(PDO::FETCH_ASSOC);
                 
                 if($product) {
-                    $new_total = $product['price'] * $new_quantity;
+                    if($new_quantity > $product['stock_quantity']) {
+                        $_SESSION['quantity_error'] = "Quantity limit exceeded.";
+
+                        $_SESSION['error_cart_id'] = $cart_id;}
+                       else{ $new_total = $product['price'] * $new_quantity;
                     $stmt = $db->prepare("UPDATE shopping_cart 
                                          SET quantity = ?, total_price = ? 
                                          WHERE cart_id = ? AND user_id = ?");
                     $stmt->execute([$new_quantity, $new_total, $cart_id, $_SESSION['user_ID']]);
                 }
             }
-        }
+        }}
         elseif(isset($_POST['remove_item'])) {
             $cart_id = $_POST['cart_id'] ?? null;
             if($cart_id) {
@@ -56,12 +60,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->execute([$cart_id, $_SESSION['user_ID']]);
             }
         }
+        header("Location: cart_page.php");
+        exit();
     } catch (PDOException $e) {
         $error = "Error updating cart: " . $e->getMessage();
     }
 }
     try {
-        $stmt = $db->prepare("SELECT sc.*, mc.title, mc.description, mc.cover_image, mc.price as unit_price FROM shopping_cart sc JOIN manga_comic mc ON sc.MC_ID = mc.MC_ID WHERE sc.user_id = ?");
+        $stmt = $db->prepare("SELECT sc.*, mc.title, mc.description, mc.cover_image, mc.price as unit_price , mc.stock_quantity FROM shopping_cart sc JOIN manga_comic mc ON sc.MC_ID = mc.MC_ID WHERE sc.user_id = ?");
         $stmt->execute([$_SESSION['user_ID']]);
         $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
@@ -78,11 +84,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $shipping_fee = 22.00; 
         $cart_summary['shipping_fee'] = $shipping_fee;
         $cart_summary['total'] = ($cart_summary['subtotal'] ?? 0) + $shipping_fee;
+
+        
         
     } catch (PDOException $e) {
         die("Database error: " . $e->getMessage());
     }
-    
+
 
 ?>
 
@@ -127,7 +135,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </svg><?= number_format((float)($item['unit_price'] ?? 0), 2) ?>
 
                 </div>
-                <form method="post" class="cart-item-form" id="dick">
+                <form method="post" class="cart-item-form" id="dick" data-stock-quantity="<?= $item['stock_quantity'] ?>" >
                     <input type="hidden" name="cart_id" value="<?= $item['cart_id'] ?>">
     
                         <div class="doradd">
@@ -135,7 +143,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <span class="quantity-display"><?= $item['quantity'] ?></span>
                             <input type="hidden" name="quantity" value="<?= $item['quantity'] ?>">
                             <div><button type="button" class="doraddbuttons" onclick="adjustQuantity(this, 1)">+</button></div>
-
+                            <div class="error-message">
+                                    <?php 
+                                    if(isset($_SESSION['quantity_error']) && $_SESSION['error_cart_id'] == $item['cart_id']) {
+                                        echo $_SESSION['quantity_error'];
+                                        unset($_SESSION['quantity_error']);
+                                        unset($_SESSION['error_cart_id']);
+                                    }
+                                    ?>
+                                </div>
                             </div>
                             <button type="hidden" name="remove_item" class="doraddbuttons" style="display: none;">Remove</button>
 
@@ -224,16 +240,25 @@ function adjustQuantity(button, change) {
     const quantityDisplay = form.querySelector('.quantity-display');
     const quantityInput = form.querySelector('input[name="quantity"]');
     const removeBtn = form.querySelector('button[name="remove_item"]');
-    let currentQty = parseInt(quantityDisplay.textContent);
+    const errorDiv = form.querySelector('.error-message');
+    const currentQty = parseInt(quantityDisplay.textContent);
+    const stockQty = parseInt(form.dataset.stockQuantity) || Infinity;
     
     // Calculate new quantity
-    const newQty = currentQty + change;
+    let newQty = currentQty + change;
+    
+    // Apply limits
+    newQty = Math.max(1, newQty); // Can't go below 1
+    newQty = Math.min(newQty, stockQty); // Can't exceed stock
+    
+    // Clear any previous error
+    if(errorDiv) errorDiv.textContent = '';
     
     if (newQty < 1) {
-        // Programmatically click the remove button
+        // If quantity would go below 1, remove the item
         removeBtn.click();
-    } else {
-        // Update display and hidden input
+    } else if (newQty !== currentQty) {
+        // Only update if quantity changed
         quantityDisplay.textContent = newQty;
         quantityInput.value = newQty;
         
@@ -244,7 +269,13 @@ function adjustQuantity(button, change) {
         updateInput.value = '1';
         form.appendChild(updateInput);
         
+        // Submit the form
         form.submit();
+    } else if (newQty >= stockQty) {
+        // Show error message if trying to exceed stock
+        if(errorDiv) {
+            errorDiv.textContent = "Quantity limit exceeded.";
+        }
     }
 }
 </script>

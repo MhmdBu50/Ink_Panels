@@ -34,7 +34,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
           throw new Exception("Your cart is empty");
       }
 
-      // 1. First create the main order record
       $createOrder = $db->prepare("
           INSERT INTO orders 
           (user_ID, total_price, status) 
@@ -44,9 +43,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
           $_SESSION['user_ID'],
           $grandTotal
       ]);
-      $order_ID = $db->lastInsertId(); // Get the auto-generated order ID
+      $order_ID = $db->lastInsertId();
       
-      // 2. Now insert order items with the correct order_ID
       $insertOrderItem = $db->prepare("
           INSERT INTO order_items 
           (order_ID, MC_ID, quantity, price_per_item) 
@@ -56,14 +54,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       foreach ($cartItems as $item) {
           $unitPrice = $item['total_price'] / $item['quantity'];
           $insertOrderItem->execute([
-              $order_ID, // This is the critical value that was missing
+              $order_ID,
               $item['MC_ID'],
               $item['quantity'],
               $unitPrice
           ]);
       }
       
-      // 3. Clear the shopping cart
       $clearCart = $db->prepare("DELETE FROM shopping_cart WHERE user_id = ?");
       $clearCart->execute([$_SESSION['user_ID']]);
       
@@ -86,11 +83,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
   <title>Checkout</title>
   <link href="css/COStyle.css" rel="stylesheet">
 </head>
-<body>
+<body>  <form action="" method="POST">
+
   <div class="container">
+
     <section class="form-section">
       <h1>Checkout</h1>
-      <form action="" method="POST">
       <input type="hidden" name="total_amount" value="<?= $grandTotal ?>">
 
         <label for="fullName">Full Name</label>
@@ -133,10 +131,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         <label for="address">Address</label>
         <input type="text" id="address" name="address" required />
 
-        <button type="button" class="back-button">Back</button>
         <button type="submit" class="place-order">Place Order</button>
 
-      </form>
+      <a href="cart_page.php"><button type="button" class="back-button">Back</button></a>
+
     </section>
 
     <section class="payment-section">
@@ -188,6 +186,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div> 
     </div>
     </section>
-  </div>
+  </div>    </form>
+
 </body>
 </html>
