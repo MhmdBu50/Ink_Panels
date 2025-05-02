@@ -233,6 +233,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['buy_now'])) {
         </div>
     </div>
     </div>
+    <?php require"footer.php"?>
+
 </body>
 <script>
     // This handles opening/closing dropdowns

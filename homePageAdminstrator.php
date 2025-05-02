@@ -72,14 +72,8 @@
     </div> 
 
 
-        <footer>
-            <div>
-                <details>
-                <summary><label><a>Contact Us</a></label></summary><ul><li><a href="tel:+966013646">+999013646</a></li><li><a href="mailto:AAAAA@email.com">AAAAA@email.com</a></li></ul></details>
-                <label><a>About Us</a></label>
-            </div>
+    <?php require"footer.php"?>
 
-        </footer>
     </div>
 
 

@@ -264,7 +264,8 @@
                 </td>
             </tr>
             <?php } ?>
-           
+            <?php require"footer.php"?>
+
             
         </table>
     </div>
