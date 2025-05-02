@@ -21,7 +21,7 @@
 
 
 
-
+// Handle "Add to Cart"
   if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_to_cart'])) {
     echo "<pre>POST Data: ";
     // print_r($_POST);
@@ -81,6 +81,31 @@
     }
   }
   
+// Handle "Buy Now"
+if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['buy_now'])) {
+ 
+    if(!isset($_SESSION['user_ID'])) {
+        header('location: login_page.php?redirect=product_details.php?id='.$product_id);
+        exit();
+    }
+
+    $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+
+    $_SESSION['checkout_now'] = [
+        'product_id' => $product_id,
+        'quantity' => $quantity
+    ];
+
+    header("Location: checkout_page.php");
+    exit();
+
+
+}
+
+
+
+
+
   $conn=$db->prepare("SELECT * FROM manga_comic WHERE MC_ID=?"); 
   $conn->execute([$product_id]);
 
@@ -181,9 +206,14 @@
                             Add to cart
                         </button>
                     </form>
+                    <form method="post" action="checkout_page.php" >
+                        <input type="hidden" name="buy_now" value="1">
+                        <input type="hidden" name="product_id" value="<?php echo $row['MC_ID'] ?>">
+                        <input type="hidden" id="selected-quantity" name="quantity" value="1">
                     <button class="you-are-rich button-base add-to-cart" class="add"><span>Buy now</span></button>
+                    </form>
 
-</div>
+                </div>
 
                 </div>
             </div>
