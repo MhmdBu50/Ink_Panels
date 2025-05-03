@@ -35,7 +35,7 @@ h1 {
 
 .manga-image img {
     width: 100%;
-    height: auto;
+    height: 100%;
     cursor: pointer;
     object-fit: cover;
     transition: transform 0.3s ease;
@@ -97,7 +97,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
-    font-size: 0.9em;
+    font-size: 1.1em;
     border-top: 1px solid #eee;
     padding-top: 8px;
 }
@@ -109,8 +109,8 @@ h1 {
 
 .manga-price {
     font-weight: bold;
-    font-size: 22px;
-    color: #29eb02;
+    font-size: 1.8rem;
+    color: #fffbfb;
 }
 
 
