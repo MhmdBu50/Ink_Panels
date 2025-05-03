@@ -107,12 +107,11 @@
       <div class="buttons">
       <button onclick='openPopup()' class="vieworders">Edit</button>
       <a href="myOrders.php"><input type="button" value="View Your Orders" id="vieworders" class="vieworders"></a>
-    
-</div>
+    </div>
     
     </div>
-
-    <?php require"footer.php"?>
+    </div>
+    
 
 
 <script>
@@ -137,6 +136,6 @@
     });
 </script>
 
-
+<?php require"footer.php"?>
 </body>
 </html>

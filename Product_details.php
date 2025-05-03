@@ -19,7 +19,22 @@
     die("Invalid product ID");
   }
 
+  //More like this! section of php
+    $stmt = $db->prepare("SELECT genre, category FROM manga_comic WHERE MC_ID = ? ");
+    $stmt->execute([$product_id]);
+    $more_like_this = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    if (!$more_like_this) {
+        die("No similar products found");
+    }
+
+    $genre = $more_like_this['genre'];
+    $category = $more_like_this['category'];
+
+    $similar = $db -> prepare("SELECT * FROM manga_comic WHERE genre = ? AND category = ? AND MC_ID != ?");
+    $similar -> execute([$genre, $category, $product_id]);
+    $similar_products = $similar -> fetchAll(PDO::FETCH_ASSOC);
+    
 
 // Handle "Add to Cart"
   if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['add_to_cart'])) {
@@ -221,14 +236,23 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['buy_now'])) {
         <div style="grid-area: box-4;">
             <h1 class="More-like-this">More like this!</h1>
             <div class="More-container">
-                <div><button class="img_button"><img src="/images/aka chan.png" class="img"><div id="title"><p>aka chan boku</p></div></button></div>
-                <div><button class="img_button"><img src="/images/fist of the north star.png" class="img"><div id="title"><p>acka chan boku</p></button></div>
-                <div><button class="img_button"><img src="/images/hajme no ippo.png" class="img"><div id="title"><p>acka chan boku</p></button></div>
-                <div><button class="img_button"><img src="/images/world trigger.png"class="img"><div id="title"><p>acka chan boku</p></button></div>
-                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <?php foreach($similar_products as $product):?>
+                    <div>
+                        <a href="product_details.php?id=<?= $product['MC_ID']; ?>">
+                        <button class = "img_button">
+                            <img class="img" src = "data: $mimetype; base64,<?php echo base64_encode($product['cover_image']); ?>">
+                            <div id="title">
+                                <p><?= htmlspecialchars($product['title']) ?>
+                                </p>
+                            </div>
+                        </button>
+                        </a>
+                    </div>
+                <?php endforeach; ?>
+                <!--<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M24 32L32 24M32 24L24 16M32 24H16M44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24Z" stroke="#1E1E1E" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                    
+                </svg>-->
+                
             </div>
         </div>
     </div>
