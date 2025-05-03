@@ -4,6 +4,7 @@
         }
 
         .details-grid-container {
+            flex: 1;
             position: relative; /* Change from absolute */
             margin: 1.5vh auto 0; /* 95px top margin for header space */
             width: 96%;
@@ -389,7 +390,49 @@
             border: lightseagreen solid 3px;
         }
 
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+          }
+          
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px 30px;
+    border: 1px solid #ccc;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: relative;
+  }
+  
+  .close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: black;
+  }
 
-
+  #helpBtn:hover svg path {
+    stroke: rgb(56, 116, 162);
+    }
 
 

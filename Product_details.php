@@ -146,7 +146,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['buy_now'])) {
 
 </head>
 <body class="body-style">
-  
+<div class="page-container">
     <?php require"header.php"?>
 
 
@@ -256,11 +256,66 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['buy_now'])) {
             </div>
         </div>
     </div>
+    <footer id="site-footer">
+            <div class="footer-content">
+            <h2><a href="ContactUs_page.php">Contact Us</a></h2>
+            <h2><a href="#">About Us</a></h2>
+            <button id="helpBtn" class="search-and-filter-buttons">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18.18 18C18.6502 16.6633 19.5783 15.5362 20.7999 14.8183C22.0215 14.1003 23.4578 13.8379 24.8544 14.0774C26.2509 14.317 27.5176 15.043 28.4302 16.1271C29.3427 17.2111 29.8421 18.583 29.84 20C29.84 24 23.84 26 23.84 26M24 34H24.02M44 24C44 35.0457 35.0457 44 24 44C12.9543 44 4 35.0457 4 24C4 12.9543 12.9543 4 24 4C35.0457 4 44 12.9543 44 24Z" stroke="#BEBEBE" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            </button>
+            </div>
+
+    </footer>
     </div>
-    <?php require"footer.php"?>
+    <div id="helpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Need Help?</h2>
+            <p>Below are explanations of each product detail shown on this page:</p>
+                <ul>
+                <li><strong>Title:</strong> The name of the product(e.g., manga, comic).</li>
+                <li><strong>Release Date:</strong> The official launch or publication date of the product.</li>
+                <li><strong>Author:</strong> The person responsible for creating the product (e.g.,mangaka , cartoonist, ).</li>
+                <li><strong>Genre:</strong>  The themes the manga or comic explores. (e.g., fiction, action, RPG, drama).</li>
+                <li><strong>Category:</strong> A one broader classification focus on the main theme such as 'action', 'drama'.</li>
+                </ul>            
+                <p>The section below helps you understand how to purchase the product using the available options:</p>
+                    <ul>
+                    <li><strong>Unit Price:</strong> Price per item.</li>
+                    <li><strong>Quantity:</strong> Choose how many you want.</li>
+                    <li><strong>Total Price:</strong> Updates based on quantity selected.</li>
+                    <li><strong>Add to Cart:</strong> Saves items for checkout later.</li>
+                    <li><strong>Buy Now:</strong> Skips the cart and goes straight to checkout.</li>
+                    </ul>
+            <p>If you have any further questions, please contact us through the <a href="ContactUs_page.php">Contact Us</a> page.</p>
+            <p>Thank you for using our service!</p>
+        </div>
+    </div>
 
 </body>
 <script>
+    // This handles the modal for help
+    const modal = document.getElementById("helpModal");
+    const btn = document.getElementById("helpBtn");
+    const span = document.querySelector(".close-btn");
+
+    btn.onclick = () => {
+        modal.style.display = "block";
+    };
+
+    span.onclick = () => {
+        modal.style.display = "none";
+    };
+
+    window.onclick = (event) => {
+        if (event.target === modal) {
+        modal.style.display = "none";
+        }
+    };
+
+
     // This handles opening/closing dropdowns
     document.querySelectorAll(".dropbtn").forEach(button => {
       button.addEventListener("click", (e) => {
