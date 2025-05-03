@@ -1,8 +1,8 @@
 <?php
-// Database connection
+
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "0509219409";
 $dbname = "ink_panels";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -12,7 +12,7 @@ if ($conn->connect_error) {
 
 $search_term = isset($_GET['manga_name']) ? $_GET['manga_name'] : '';
 
-// If we are only requesting an image
+
 if (isset($_GET['show']) && $_GET['show'] === 'image' && isset($_GET['id'])) {
     $id = intval($_GET['id']); 
     $sql = "SELECT cover_image FROM manga_comic WHERE MC_ID = ?";
@@ -47,10 +47,11 @@ if (isset($_GET['show']) && $_GET['show'] === 'image' && isset($_GET['id'])) {
    
     
     <?php
-    // Search for manga with titles containing the search term
+    
     if (!empty($search_term)) {
         $search_param = "%" . $search_term . "%";
-        $sql = "SELECT MC_ID, title, description FROM manga_comic WHERE title LIKE ?";
+        
+        $sql = "SELECT MC_ID, title, description, author, price FROM manga_comic WHERE title LIKE ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $search_param);
         $stmt->execute();
@@ -61,9 +62,8 @@ if (isset($_GET['show']) && $_GET['show'] === 'image' && isset($_GET['id'])) {
                 $id = $row['MC_ID'];
                 $title = htmlspecialchars($row['title']);
                 $description = htmlspecialchars($row['description']);
-                
-                // if we want to Limit description length
-              //  $short_desc = strlen($description) > 200 ? substr($description, 0, 200) . "..." : $description;
+                $author = htmlspecialchars($row['author']);
+                $price = number_format($row['price'], 2); 
                 
                 echo "<div class='manga-item'>";
                 echo "<div class='manga-image'>";
@@ -72,8 +72,12 @@ if (isset($_GET['show']) && $_GET['show'] === 'image' && isset($_GET['id'])) {
                 echo "<div class='manga-info'>";
                 echo "<div class='manga-title'><a href='Product_details.php?id=$id'>$title</a></div>";
                 echo "<div class='manga-description'>$description</div>";
-                echo "</div>";
-                echo "</div>";
+                echo "<div class='manga-details'>";
+                echo "<span class='manga-author'>Author: $author</span>";
+                echo "<span class='manga-price'>$" . $price . "</span>";
+                echo "</div>"; 
+                echo "</div>"; 
+                echo "</div>"; 
             }
         } else {
             echo "<div class='no-results'>No manga found matching your search for \"" . htmlspecialchars($search_term) . "\".</div>";
