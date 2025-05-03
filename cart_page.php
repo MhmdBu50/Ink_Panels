@@ -143,6 +143,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <span class="quantity-display"><?= $item['quantity'] ?></span>
                             <input type="hidden" name="quantity" value="<?= $item['quantity'] ?>">
                             <div><button type="button" class="doraddbuttons" onclick="adjustQuantity(this, 1)">+</button></div>
+                            <button type="hidden" name="remove_item" class="doraddbuttons" style="display: none;">Remove</button>
+
                             <div class="error-message">
                                     <?php 
                                     if(isset($_SESSION['quantity_error']) && $_SESSION['error_cart_id'] == $item['cart_id']) {
@@ -153,7 +155,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                                     ?>
                                 </div>
                             </div>
-                            <button type="hidden" name="remove_item" class="doraddbuttons" style="display: none;">Remove</button>
 
                     </form>
 
@@ -245,39 +246,30 @@ function adjustQuantity(button, change) {
     const currentQty = parseInt(quantityDisplay.textContent);
     const stockQty = parseInt(form.dataset.stockQuantity) || Infinity;
     
-    // Calculate new quantity
     let newQty = currentQty + change;
     
-    // Apply limits
-    newQty = Math.max(1, newQty); // Can't go below 1
-    newQty = Math.min(newQty, stockQty); // Can't exceed stock
-    
-    // Clear any previous error
-    if(errorDiv) errorDiv.textContent = '';
-    
     if (newQty < 1) {
-        // If quantity would go below 1, remove the item
-        removeBtn.click();
-    } else if (newQty !== currentQty) {
-        // Only update if quantity changed
-        quantityDisplay.textContent = newQty;
-        quantityInput.value = newQty;
-        
-        // Create hidden input to indicate this is an update
-        const updateInput = document.createElement('input');
-        updateInput.type = 'hidden';
-        updateInput.name = 'update';
-        updateInput.value = '1';
-        form.appendChild(updateInput);
-        
-        // Submit the form
-        form.submit();
-    } else if (newQty >= stockQty) {
-        // Show error message if trying to exceed stock
+        removeBtn.click(); 
+        return;
+    }
+    
+    if (newQty > stockQty) {
         if(errorDiv) {
             errorDiv.textContent = "Quantity limit exceeded.";
         }
+        return;
     }
+    
+    quantityDisplay.textContent = newQty;
+    quantityInput.value = newQty;
+    
+    const updateInput = document.createElement('input');
+    updateInput.type = 'hidden';
+    updateInput.name = 'update';
+    updateInput.value = '1';
+    form.appendChild(updateInput);
+    
+    form.submit();
 }
 </script>
 
