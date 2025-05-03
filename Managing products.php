@@ -12,7 +12,7 @@
             $stmt->bindParam(":id",$delete,PDO::PARAM_INT);
             $stmt->execute();
             
-        }else{
+        }elseif(isset($_POST['add_product'])){
         $title=htmlspecialchars($_POST["title"]);
         $author=htmlspecialchars($_POST["author"]);
         $genre = isset($_POST['genre']) ? implode(',', $_POST['genre']) : '';
@@ -62,10 +62,11 @@
                 $edit->bindParam(":dec", $dec);
                 $edit->bindParam(":type", $type);
                 $edit->execute();
-                echo"DONE";
+                header("Location: ".$_SERVER['PHP_SELF']);
+                exit();            
             }catch(PDOException $e){
-                echo "<p class='error'>Database error: " . $e->getMessage() . "</p>"; 
-                error_log("Database error: " . $e->getMessage());
+                // echo "<p class='error'>Database error: " . $e->getMessage() . "</p>"; 
+                // error_log("Database error: " . $e->getMessage());
             }
             
         }
@@ -111,7 +112,7 @@
     
     <?php require"header.php"?>
     
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data" id="add-form">
 
         <div id="popup" class="overlay">
             <div class="content-up">
@@ -180,7 +181,7 @@
                         <label>Description</label><br>
                         <textarea placeholder="What were you reading about?"  name="dec"></textarea>
                     </div>
-                    <button class="save-btn" type="submit">Save Changes</button>
+                    <button class="save-btn" type="submit" name="add_product">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -189,6 +190,7 @@
 
 
     <div class="table-wrap">
+
         <table class="table-prod">
             <colgroup>
                 <col style="width: 5%;">
@@ -211,27 +213,8 @@
 
                 
                 <th class="th-prod">
-                    <div class="search-container-table">
-                        <button class="search-and-filter-buttons">  
-                        <svg class="search-icon" width="26" height="26" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"> <!--the SVG icons are copied from figma-->
-                            <path d="M21 29C25.4183 29 29 25.4183 29 21C29 16.5817 25.4183 13 21 13C16.5817 13 13 16.5817 13 21C13 25.4183 16.5817 29 21 29Z" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M31.0002 31L26.7002 26.7" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        </button>                     
-                        <input class="table-search-input" type="text" placeholder="Search ..." style="color: #ABB7C2;"> 
-                        <button class="search-and-filter-buttons">
-                            <svg id="filter" width="26" height="26" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M31 14H24" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M20 14H13" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M31 22H22" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M18 22H13" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M31 30H26" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M22 30H13" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M24 12V16" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M18 20V24" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M26 28V32" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                        </button>           
+                    <div>            
+                        <button class="buttonmg open-up"onclick='open' id="add"> add</button>
                     </div>
                 </th>
             </tr>
@@ -250,46 +233,44 @@
                 <td class="td-prod"><?php echo $row['release_date'];?></td>
                 <td class="img-container">
 
-                <form method="post">
-                    <input type="hidden" name="edit_id" value="<?= $row['MC_ID']; ?>">
-                    <button class="buttonmg open-up" ><img src="images\edit.png"  alt="edit"  onclick='open'></button>
 
                     </form>
                 <form method="post" onsubmit="return confirmdeletion();">
                     <input type="hidden" name="delete_id" value="<?= $row['MC_ID']; ?>">
-                    <button class="buttonmg" type="submit" name="delete"><img src="images\delete.png" name="delet" alt="delete"></button>
+                    <button id="buttonmg" type="submit" name="delete"><img src="images\delete.png" name="delet" alt="delete"></button>
                     </form>
-                    
-
                 </td>
+                
             </tr>
             <?php } ?>
 
             
         </table>
     </div>
+
     <?php require"footer.php"?>
 
     <script>
-        const openBtns = document.querySelectorAll('.open-up');
-        const closeBtn = document.getElementById('close-up');
-        const modal = document.getElementById('popup');
-
-        openBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-            modal.style.display = 'flex';
-            });
+     // Only open popup when explicitly clicked, not on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide popup initially
+    document.getElementById('popup').style.display = 'none';
+    
+    // Set up event listeners
+    document.querySelectorAll('.open-up').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default behavior
+            document.getElementById('popup').style.display = 'flex';
         });
+    });
 
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === modal) {
-            modal.style.display = 'none';
-            }
-        });
+    // Close button
+    document.getElementById('close-up').addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('add-form').reset(); // Clear form
+    });
+});
 
         function confirmdeletion(){
             return confirm("To erase this creation, to sever the ties of existence itself... Do you grasp the magnitude of what you are about to do? Once you erase this, there will be no returning. A soul extinguished, a life forgotten, wiped from the very fabric of time itself. Do you truly have the resolve to carry this sin? Is your hand steady enough to cast them into oblivion? No mercy, no second chances. You must ask yourself... can you bear the weight of their absence, forever? Would this work for your scene?")

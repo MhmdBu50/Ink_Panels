@@ -7,7 +7,9 @@
 //     echo '<pre>Session Contents: ';
 // print_r($_SESSION);
 // echo '</pre>';
-
+if(!isset($_SESSION['admin_ID'])){
+    header("location:login_page.php");
+}
 
 if(!$conn=mysqli_connect("localhost","root","root"))
 die("cannot connect to data base");
