@@ -5,10 +5,17 @@
   // echo '<pre>Session Contents: ';
   // print_r($_SESSION);
   // echo '</pre>';
-    $user=$db->prepare("SELECT * FROM user,admins WHERE user_ID=?");
-    
-    $user->execute([$_SESSION["user_ID"]]);
-    $row=$user->fetch(PDO::FETCH_ASSOC);
+  if(isset($_SESSION['user_ID'])){
+  $user = $db->prepare("SELECT * FROM user WHERE user_ID = ?");
+  $user->execute([$_SESSION["user_ID"]]);
+  $row=$user->fetch(PDO::FETCH_ASSOC);
+}
+
+  if(isset($_SESSION['admin_ID'])){
+  $admin = $db->prepare("SELECT * FROM admins WHERE admin_ID = ?");
+    $admin->execute([$_SESSION["admin_ID"]]);
+    $arow=$admin->fetch(PDO:: FETCH_ASSOC);
+  }
 
   if($_SERVER['REQUEST_METHOD']=="POST"){
 
@@ -17,10 +24,17 @@
     $phone=$_POST['phone'];
     $country=$_POST['country'];
 
+    if(isset($_SESSION['admin_ID'])){
+      $edit=$db->prepare("UPDATE admins SET first_name=? , last_name=?,`phone`=? WHERE admin_ID=?");
+      $edit->execute([$firstname,$lastname,$phone,$_SESSION["admin_ID"]]);
+    }
+   
+    if(isset($_SESSION['user_ID'])){
       $edit=$db->prepare("UPDATE user SET First_name=? , Last_name=?,`Phone number`=?, coountry=? WHERE user_ID=?");
     $edit->execute([$firstname,$lastname,$phone,$country,$_SESSION["user_ID"]]);
     }
-
+    
+    }
 ?>
 
 
@@ -91,10 +105,9 @@
               </div>
           </form>
      </div>
-
+     <?php if(isset($_SESSION['user_ID'])):?>
      <div class="mainb">  
      <div class="formc">
-
      <div class="ainfobox"> First name: <?php echo $row['First_name']?></div>
      
      <div class="ainfobox"> Last name: <?php echo $row['Last_name']?></div>
@@ -108,12 +121,44 @@
       <button onclick='openPopup()' class="vieworders">Edit</button>
       <a href="myOrders.php"><input type="button" value="View Your Orders" id="vieworders" class="vieworders"></a>
     </div>
-    
     </div>
     </div>
-    
 
+    <?php elseif(isset($_SESSION['admin_ID'])) :?>
+      <div class="mainb">  
+     <div class="formc">
+     <div class="ainfobox"> First name: <?php echo $arow['first_name']?></div>
+     
+     <div class="ainfobox"> Last name: <?php echo $arow['last_name']?></div>
 
+     <div class="ainfobox"> Email: <?php echo $arow['email']?></div> 
+
+     <div class="ainfobox"> Phone Number: <?php echo $arow['phone']?></div>
+
+      <div class="buttons">
+      <button onclick='openPopup()' class="vieworders">Edit</button>
+    </div>
+    </div>
+    </div>
+    <?php else:?>
+      <div class="mainb">  
+     <div class="formc">
+     <div class="ainfobox"> First name: <?php echo $row['First_name']?></div>
+     
+     <div class="ainfobox"> Last name: <?php echo $row['Last_name']?></div>
+
+     <div class="ainfobox"> Email: <?php echo $row['Email']?></div> 
+
+     <div class="ainfobox"> Phone Number: <?php echo $row['Phone number']?></div>
+
+     <div class="ainfobox"> Country: <?php echo $row['coountry']?></div>
+      <div class="buttons">
+      <button onclick='openPopup()' class="vieworders">Edit</button>
+      <a href="myOrders.php"><input type="button" value="View Your Orders" id="vieworders" class="vieworders"></a>
+    </div>
+    </div>
+    </div>
+    <?php endif; ?>
 <script>
     // Initialize popup as hidden
     document.addEventListener('DOMContentLoaded', function() {

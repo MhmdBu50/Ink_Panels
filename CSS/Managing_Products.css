@@ -114,8 +114,21 @@ td img:active {
     overflow-x: auto;
     overflow-y: auto;
 }
+#add{
+    border: #0D0B26 solid;
+    border-radius: 5%;
+    background-color:#0D0B26;
+    height: 45px;
+    width: 100px;
+    color: white;
 
-.buttonmg {
+}
+#add:hover{
+    border: white solid 1px;
+    transform: scale(1.1);
+
+}
+#buttonmg {
     width: fit-content;
     height: fit-content;
     background: none;
@@ -159,7 +172,7 @@ td img:active {
 }
 
 .overlay {
-    display: flex;
+    display: none;
     position: fixed;
     justify-content: center;
     align-items: center;
@@ -171,8 +184,8 @@ td img:active {
     z-index: 9999;
 }
 
-.content-up {
-    display: grid;
+.content-up{
+    display: flex;
     background: #2C2C2C;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     position: relative;
@@ -181,10 +194,8 @@ td img:active {
     border-radius: 10px;
     color: white;
     padding: 30px;
-    grid-template-columns: 1fr 2fr;
     /* grid-template-rows: 5fr 2fr; */
     grid-gap: 20px;
-    align-content: start;  
 }
 
 #close-up {
@@ -203,6 +214,26 @@ td img:active {
 
 #close-up:hover {
     color: white;
+}
+
+.close-up{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #ABB7C2;
+    font-size: 28px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 5px;
+    margin: 0;
+
+}
+.close-up:hover{
+    color: white;
+
+
 }
 
 .content-up > div {

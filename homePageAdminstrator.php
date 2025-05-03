@@ -7,9 +7,11 @@
 //     echo '<pre>Session Contents: ';
 // print_r($_SESSION);
 // echo '</pre>';
+if(!isset($_SESSION['admin_ID'])){
+    header("location:login_page.php");
+}
 
-
-if(!$conn=mysqli_connect("localhost","root","root"))
+if(!$conn=mysqli_connect("localhost","root","0509219409"))
 die("cannot connect to data base");
 if(!($database=mysqli_select_db($conn,"ink_panels")))
 die("cannot connect to db");

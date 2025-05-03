@@ -8,12 +8,12 @@
 // echo '</pre>';
 
 
-if(!$conn=mysqli_connect("localhost","root","root"))
+if(!$conn=mysqli_connect("localhost","root","0509219409"))
 die("cannot connect to data base");
 if(!($database=mysqli_select_db($conn,"ink_panels")))
 die("cannot connect to db");
 
-$query="SELECT MC_ID , title ,cover_image ,type FROM manga_comic ";
+$query="SELECT *  FROM manga_comic ";
 
 
 $result=mysqli_query($conn,$query);
@@ -92,6 +92,8 @@ $result=mysqli_query($conn,$query);
         <?php
 
 while ($row = mysqli_fetch_assoc($result)) {
+    if($row['stock_quantity']>0)
+    {
     echo '
     <div data-category="'.htmlspecialchars($row['type']).'">
         <a href="Product_details.php?id='.$row['MC_ID'].'">
@@ -105,7 +107,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             </button>
         </a>
     </div>';
-}
+}}
 ?>
         
     </div>

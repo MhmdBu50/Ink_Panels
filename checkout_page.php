@@ -2,16 +2,18 @@
 session_start();
 require_once "database.php";
 
+    echo '<pre>Session Contents: ';
+print_r($_SESSION);
+echo '</pre>';
+
 if (!isset($_GET['mode']) && isset($_SESSION['checkout_now'])) {
   unset($_SESSION['checkout_now']);
 }
 
 
-//the following if statement should handel the flow of the buy now button from the product details page
 if($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buy_now'])){
     $product_id = $_POST['product_id'];
-    $quantity = $_POST['quantity']; //note to self: These values were sent from the form of buy_now in the product details page... 
-                                    //using the hidden inputs in the form
+    $quantity = $_POST['quantity']; 
     $_SESSION['checkout_now']=[
         'product_id' => $product_id,
         'quantity' => $quantity
@@ -102,11 +104,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
               $item['quantity'],
               $unitPrice
           ]);
+          $updateMC=$db->prepare('UPDATE manga_comic set stock_quantity=stock_quantity - ? WHERE MC_ID=?');
+          $updateMC->execute([$item['quantity'],$item['MC_ID']]);
+      
       }
       
       $clearCart = $db->prepare("DELETE FROM shopping_cart WHERE user_id = ?");
       $clearCart->execute([$_SESSION['user_ID']]);
-      
+
+ 
       $db->commit();
       
       header("Location: cart_page.php");
