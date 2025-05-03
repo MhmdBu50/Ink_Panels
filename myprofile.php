@@ -5,7 +5,7 @@
   // echo '<pre>Session Contents: ';
   // print_r($_SESSION);
   // echo '</pre>';
-    $user=$db->prepare("SELECT * FROM user WHERE user_ID=?");
+    $user=$db->prepare("SELECT * FROM user,admins WHERE user_ID=?");
     
     $user->execute([$_SESSION["user_ID"]]);
     $row=$user->fetch(PDO::FETCH_ASSOC);
