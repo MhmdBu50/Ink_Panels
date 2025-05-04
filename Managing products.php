@@ -322,6 +322,7 @@ if(isset($_GET['edit_id'])) {
                 <td class="td-prod"><?= htmlspecialchars($row['stock_quantity']) ?></td>
                 <td class="td-prod"><?= htmlspecialchars($row['price']) ?></td>
                 <td class="td-prod"><?= htmlspecialchars($row['release_date']) ?></td>
+                <td class="td-prod" style="display: none;"><?= htmlspecialchars($row['description']) ?></td>
                 <td class="img-container">
                     <form method="post" class="edit-form">
                         <input type="hidden" name="edit_id" value="<?= $row['MC_ID'] ?>">
@@ -375,7 +376,7 @@ if(isset($_GET['edit_id'])) {
                 document.getElementById('edit-stock').value = cells[5].textContent;
                 document.getElementById('edit-price').value = cells[6].textContent;
                 document.getElementById('edit-date').value = new Date(cells[7].textContent).toISOString().split('T')[0];
-                document.getElementById('edit-dec').value = row.querySelector('td:nth-child(8)').textContent;
+                document.getElementById('edit-dec').value = row.querySelector('td:nth-child(9)').textContent;
                 
                 document.getElementById('edit-popup').style.display = 'flex';
             });
