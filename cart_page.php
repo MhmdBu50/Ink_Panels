@@ -135,7 +135,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </svg><?= number_format((float)($item['unit_price'] ?? 0), 2) ?>
 
                 </div>
-                <form method="post" class="cart-item-form" id="dick" data-stock-quantity="<?= $item['stock_quantity'] ?>" >
+                <form method="post" class="cart-item-form" id="qu" data-stock-quantity="<?= $item['stock_quantity'] ?>" >
                     <input type="hidden" name="cart_id" value="<?= $item['cart_id'] ?>">
     
                         <div class="doradd">
