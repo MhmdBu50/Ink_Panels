@@ -12,6 +12,10 @@ $edit_product = null;
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['delete_id'])) {
         $delete = $_POST['delete_id'];
+
+        $stmt = $db->prepare("DELETE FROM order_items WHERE MC_ID = :id");
+        $stmt->bindParam(":id", $delete, PDO::PARAM_INT);
+        $stmt->execute();
         $stmt = $db->prepare("DELETE FROM manga_comic WHERE MC_ID = :id");
         $stmt->bindParam(":id", $delete, PDO::PARAM_INT);
         $stmt->execute();
