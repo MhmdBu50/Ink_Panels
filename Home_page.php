@@ -8,7 +8,7 @@
 // echo '</pre>';
 
 
-if(!$conn=mysqli_connect("localhost","root","root"))
+if(!$conn=mysqli_connect("localhost","root","0509219409"))
 die("cannot connect to data base");
 if(!($database=mysqli_select_db($conn,"ink_panels")))
 die("cannot connect to db");

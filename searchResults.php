@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "0509219409";
 $dbname = "ink_panels";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
