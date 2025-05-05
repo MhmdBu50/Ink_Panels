@@ -25,19 +25,7 @@ if(isset($_SESSION['admin_ID'])): ?>
             </svg>
         </button>                     
         <input class="search poppins-regular" type="text" name="manga_name" placeholder="Search ..." style="color: #ABB7C2;"> 
-        <button type="button" class="search-and-filter-buttons">
-            <svg id="filter" width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M31 14H24" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M20 14H13" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M31 22H22" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M18 22H13" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M31 30H26" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M22 30H13" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M24 12V16" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M18 20V24" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M26 28V32" stroke="#ABB7C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>           
+                   
     </form>
     <div class="signlog-container">
         <?php if(isset($_SESSION['user_ID']) || isset($_SESSION['admin_ID'])):?>
