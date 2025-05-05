@@ -4,10 +4,10 @@ body {
     background-color: #2C2C2C;
 }
 
-* {
+*:not(#logo) {
     box-sizing: border-box;
-}
-
+  }
+  
 .table-prod {
     border-collapse: collapse;
     border-spacing: 0;
@@ -196,6 +196,7 @@ td img:active {
     padding: 30px;
     /* grid-template-rows: 5fr 2fr; */
     grid-gap: 20px;
+    height: 836px;
 }
 
 #close-up {
@@ -258,7 +259,7 @@ td img:active {
     padding: 12px;
     width: 100%;
     transition: all 0.3 ease;
-    
+    max-width: 577px;
 }
 
  .content-up textarea {

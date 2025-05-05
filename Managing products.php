@@ -8,6 +8,7 @@ require_once 'database.php';
 
 $errors = [];
 $edit_product = null;
+$search_term = isset($_GET['manga_name']) ? htmlspecialchars($_GET['manga_name']) : '';
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['delete_id'])) {
@@ -127,8 +128,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Modified query to filter products based on search term if provided
 $query = "SELECT MC_ID, title, author, price, genre, stock_quantity, release_date, description, type FROM manga_comic";
-$stmt = $db->prepare($query);
+if (!empty($search_term)) {
+    $query .= " WHERE title LIKE :search";
+    $stmt = $db->prepare($query);
+    $search_param = "%" . $search_term . "%";
+    $stmt->bindParam(":search", $search_param);
+} else {
+    $stmt = $db->prepare($query);
+}
 $stmt->execute();
 $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -150,7 +159,7 @@ if(isset($_GET['edit_id'])) {
 
 </head>
 <body>
-    <?php require "header.php"; ?>
+    <?php require "adminHeader.php"; ?>
     
     <div id="popup" class="overlay">
         <div class="content-up">
@@ -313,36 +322,49 @@ if(isset($_GET['edit_id'])) {
                 <th class="th-prod">Stock</th>
                 <th class="th-prod">Unit Price</th>
                 <th class="th-prod">Release Date</th>
-                <th class="th-prod"><button class="buttonmg open-up" id="add">Add New Product</button>
+                <th class="th-prod">
+                    <?php if (!empty($search_term)): ?>
+                        <div class="search-info">
+                            Showing results for: "<?= $search_term ?>" 
+                            <a href="Managing products.php" class="clear-search">Clear</a>
+                        </div>
+                    <?php endif; ?>
+                    <button class="buttonmg open-up" id="add">Add New Product</button>
                 </th>
             </tr>
-            <?php foreach($products as $i => $row): ?>
-            <tr class="tr-prod">
-                <td class="td-prod"><?= $i + 1 ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['title']) ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['author']) ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['type']) ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['genre']) ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['stock_quantity']) ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['price']) ?></td>
-                <td class="td-prod"><?= htmlspecialchars($row['release_date']) ?></td>
-                <td class="td-prod" style="display: none;"><?= htmlspecialchars($row['description']) ?></td>
-                <td class="img-container">
-                    <form method="post" class="edit-form">
-                        <input type="hidden" name="edit_id" value="<?= $row['MC_ID'] ?>">
-                        <button type="button" class="buttonmg open-edit" data-id="<?= $row['MC_ID'] ?>">
-                            <img src="images/edit.png" alt="edit">
-                        </button>
-                    </form>
-                    <form method="post" onsubmit="return confirmDeletion();">
-                        <input type="hidden" name="delete_id" value="<?= $row['MC_ID'] ?>">
-                        <button type="submit" name="delete" class="buttonmg">
-                            <img src="images/delete.png" alt="delete">
-                        </button>
-                    </form>
-                </td>
-            </tr>
-            <?php endforeach; ?>
+            <?php if (count($products) > 0): ?>
+                <?php foreach($products as $i => $row): ?>
+                <tr class="tr-prod">
+                    <td class="td-prod"><?= $i + 1 ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['title']) ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['author']) ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['type']) ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['genre']) ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['stock_quantity']) ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['price']) ?></td>
+                    <td class="td-prod"><?= htmlspecialchars($row['release_date']) ?></td>
+                    <td class="td-prod" style="display: none;"><?= htmlspecialchars($row['description']) ?></td>
+                    <td class="img-container">
+                        <form method="post" class="edit-form">
+                            <input type="hidden" name="edit_id" value="<?= $row['MC_ID'] ?>">
+                            <button type="button" class="buttonmg open-edit" data-id="<?= $row['MC_ID'] ?>">
+                                <img src="images/edit.png" alt="edit">
+                            </button>
+                        </form>
+                        <form method="post" onsubmit="return confirmDeletion();">
+                            <input type="hidden" name="delete_id" value="<?= $row['MC_ID'] ?>">
+                            <button type="submit" name="delete" class="buttonmg">
+                                <img src="images/delete.png" alt="delete">
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="9" class="no-results">No products found matching "<?= $search_term ?>"</td>
+                </tr>
+            <?php endif; ?>
         </table>
     </div>
 
