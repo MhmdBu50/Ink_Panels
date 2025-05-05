@@ -4,10 +4,10 @@ body {
     background-color: #2C2C2C;
 }
 
-* {
+*:not(#logo) {
     box-sizing: border-box;
-}
-
+  }
+  
 .table-prod {
     border-collapse: collapse;
     border-spacing: 0;
@@ -128,10 +128,10 @@ td img:active {
     transform: scale(1.1);
 
 }
-#buttonmg {
+.buttonmg {
     width: fit-content;
     height: fit-content;
-    background: none;
+    background: transparent;
     border: none;
     border-collapse: collapse;
     padding: 0;
